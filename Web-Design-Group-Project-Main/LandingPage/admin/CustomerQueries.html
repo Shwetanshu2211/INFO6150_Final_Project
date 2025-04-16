@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Queries</title>
+    <link rel="stylesheet" href="CustomerQueries.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Gallery</a>
+            <a href="#">Orders</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <input type="checkbox" id="menu-toggle" style="display:none;">
+        <label for="menu-toggle" class="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </label>
+    </header>
+
+    <div class="container">
+        <h1>Customer Queries</h1>
+        
+        <div class="search-bar">
+            <input type="text" placeholder="Search queries...">
+            <button class="search-btn">Search</button>
+        </div>
+
+        <div class="queries-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Query ID</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Message</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>customer1@example.com</td>
+                        <td>Product Inquiry</td>
+                        <td class="message-cell">I would like to know more about your furniture collection. Specifically, I'm interested in the living room sets and would appreciate detailed information about materials, dimensions, and available color options. Also, do you offer customization services?</td>
+                        <td>
+                            <a href="mailto:customer1@example.com?subject=Re: Product Inquiry" class="reply-btn">Reply</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>customer2@example.com</td>
+                        <td>Delivery Question</td>
+                        <td class="message-cell">When can I expect my order to be delivered? I placed order #FN2023-456 last week for a dining table set. I need to know the estimated delivery time as I'm planning to host a dinner party next month. Please provide tracking information if available.</td>
+                        <td>
+                            <a href="mailto:customer2@example.com?subject=Re: Delivery Question" class="reply-btn">Reply</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html> 
