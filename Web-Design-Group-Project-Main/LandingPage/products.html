@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fusion Furnish | Products</title>
+  <link rel="icon" href="images/furniturefav.png">
+  <link rel="stylesheet" href="homepage.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    .sidebar {
+      min-width: 220px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 30px 15px;
+      height: 100%;
+    }
+    .sidebar .list-group-item.active {
+      background: #006027;
+      color: #fff;
+      border: none;
+    }
+    .product-card {
+      transition: box-shadow 0.2s;
+    }
+    .product-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+      transform: translateY(-4px) scale(1.01);
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="header-content">
+    <div class="left-section">
+      <i class="fas fa-map-marker-alt"></i>
+      <a href="ComingSoonPage.html" class="store-link">Find a store.</a>
+    </div>
+    <div class="center-section">
+      <h1 class="logo">Fusion Furnish</h1>
+    </div>
+    <div class="right-section">
+      <input type="text" placeholder="What can we help you find?" class="search-bar">
+      <i class="fas fa-search search-icon"></i>
+      <i class="fas fa-shopping-bag cart-icon"></i>
+      <a href="signIn_signUp.html" class="btn btn-dark sign-in-btn">Sign In</a>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links">
+      <li><a href="homepage.html#explore-now">Explore</a></li>
+      <li><a href="homepage.html#offerings">Our Offerings</a></li>
+      <li><a href="homepage.html#about-us">About Us</a></li>
+      <li><a href="homepage.html#meet-designers">Designers</a></li>
+      <li><a href="homepage.html#assistance-faq">FAQs</a></li>
+      <li><a href="homepage.html#Reviews">Reviews</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="container-fluid py-5" style="margin-top: 30px;">
+  <div class="row">
+    <!-- Sidebar -->
+    <aside class="col-lg-3 mb-4">
+      <div class="sidebar">
+        <h5 class="mb-3">Categories</h5>
+        <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action active" onclick="showCategory('sofa')">Sofas</a>
+          <a href="#" class="list-group-item list-group-item-action" onclick="showCategory('dining')">Dining Tables</a>
+          <a href="#" class="list-group-item list-group-item-action" onclick="showCategory('tv')">TV Cabinets</a>
+          <a href="#" class="list-group-item list-group-item-action" onclick="showCategory('wardrobe')">Wardrobes</a>
+          <a href="#" class="list-group-item list-group-item-action" onclick="showCategory('tables')">Tables & More</a>
+        </div>
+      </div>
+    </aside>
+    <!-- Product Grid -->
+    <main class="col-lg-9">
+      <div id="products-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <!-- Example Sofa Product -->
+        <div class="col product-item sofa">
+          <div class="card h-100 product-card">
+            <img src="images/sofa1.jpg" class="card-img-top" alt="Sofa 1">
+            <div class="card-body text-center">
+              <h5 class="card-title">Sofa 1</h5>
+              <p class="card-text">Luxurious leather sofa for a modern look.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold">$1,299</span>
+                <a href="product-details.html?product=sofa1" class="btn btn-dark">View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Repeat for other products, changing class and content as needed -->
+        <div class="col product-item sofa">
+          <div class="card h-100 product-card">
+            <img src="images/sofa2.jpg" class="card-img-top" alt="Sofa 2">
+            <div class="card-body text-center">
+              <h5 class="card-title">Sofa 2</h5>
+              <p class="card-text">Luxurious leather sofa for a modern look.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold">$1,299</span>
+                <a href="product-details.html?product=sofa1" class="btn btn-dark">View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+  // Simple category filter (show/hide products)
+  function showCategory(cat) {
+    document.querySelectorAll('.list-group-item').forEach(item => item.classList.remove('active'));
+    document.querySelectorAll('.list-group-item').forEach(item => {
+      if(item.textContent.trim().toLowerCase().includes(cat)) item.classList.add('active');
+    });
+    document.querySelectorAll('.product-item').forEach(item => {
+      if(cat === 'sofa' && item.classList.contains('sofa')) item.style.display = '';
+      else if(cat === 'dining' && item.classList.contains('dining')) item.style.display = '';
+      else if(cat === 'tv' && item.classList.contains('tv')) item.style.display = '';
+      else if(cat === 'wardrobe' && item.classList.contains('wardrobe')) item.style.display = '';
+      else if(cat === 'tables' && item.classList.contains('tables')) item.style.display = '';
+      else item.style.display = 'none';
+    });
+  }
+  // Show sofas by default
+  document.addEventListener('DOMContentLoaded', function() { showCategory('sofa'); });
+</script>
+</body>
+</html>
