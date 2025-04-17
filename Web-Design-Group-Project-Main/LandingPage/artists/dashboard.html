@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Fusion Furnish</title>
+    <link rel="icon" href="../Frontend/images/furniturefav.png" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="dashboard.css" />
+    <style>
+      body {
+        background-image: url("artist_background.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+      }
+
+      .main-content {
+        padding: 20px;
+        min-height: calc(100vh - 80px);
+      }
+
+      .container {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Add specific styling for title container */
+      .title-container {
+        background-color: transparent !important;
+        box-shadow: none !important;
+      }
+
+      .title-container h1 {
+        color: #333;
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+      }
+
+      .stats-section {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+        font-size: 2rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 10px;
+      }
+
+      @media (max-width: 992px) {
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 576px) {
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .stat-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+        text-align: center;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .stat-card h3 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        color: #000000;
+      }
+
+      .stat-card p {
+        font-size: 1.1rem;
+        color: #333;
+        margin: 0;
+      }
+
+      .view-orders-card {
+        background-color: #000000;
+        color: white;
+        cursor: pointer;
+      }
+
+      .view-orders-card:hover {
+        background-color: #333333;
+      }
+
+      .view-orders-card h3 {
+        color: white;
+        font-size: 1.5rem;
+      }
+
+      .recent-orders {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+      }
+
+      .right-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      .nav-links li a {
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="left-section">
+          <i class="fas fa-map-marker-alt"></i>
+          <a href="../Frontend/ComingSoonPage.html" class="store-link"
+            >Find a store.</a
+          >
+        </div>
+        <div class="center-section">
+          <h1 class="logo">Fusion Furnish</h1>
+        </div>
+        <div class="right-section">
+          <div class="search-signout">
+            <a
+              href="../Frontend/signIn_signUp.html"
+              class="btn btn-dark sign-in-btn"
+              >Sign Out</a
+            >
+          </div>
+          <ul class="nav-links"></ul>
+        </div>
+      </div>
+      <nav class="nav">
+        <div class="menu-icon" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <!-- Stats Section -->
+      <section class="stats-section">
+        <h1 class="section-title">Dashboard</h1>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>0</h3>
+            <p>In Progress</p>
+          </div>
+          <div class="stat-card">
+            <h3>0</h3>
+            <p>Completed</p>
+          </div>
+          <div class="stat-card">
+            <h3>0</h3>
+            <p>Waiting</p>
+          </div>
+          <a href="orders.html" style="text-decoration: none">
+            <div class="stat-card view-orders-card">
+              <h3>View Orders</h3>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function toggleMenu() {
+        const navLinks = document.querySelector(".nav-links");
+        navLinks.classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>

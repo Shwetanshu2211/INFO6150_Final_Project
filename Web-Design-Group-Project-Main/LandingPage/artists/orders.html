@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders - Fusion Furnish</title>
+    <link rel="icon" href="../Frontend/images/furniturefav.png" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="dashboard.css" />
+    <style>
+      body {
+        background-image: url("artist_background.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+      }
+
+      .main-content {
+        padding: 20px;
+        min-height: calc(100vh - 80px);
+      }
+
+      .container {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .orders-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      .orders-table th,
+      .orders-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .orders-table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+      }
+
+      .orders-table tr:hover {
+        background-color: #f5f5f5;
+      }
+
+      .status-badge {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .status-accepted {
+        background-color: #e3f2fd;
+        color: #1976d2;
+      }
+
+      .status-completed {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      .status-delivered {
+        background-color: #f3e5f5;
+        color: #7b1fa2;
+      }
+
+      .action-btn {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        margin-right: 5px;
+      }
+
+      .view-btn {
+        background-color: #e3f2fd;
+        color: #1976d2;
+      }
+
+      .view-btn:hover {
+        background-color: #bbdefb;
+      }
+
+      .update-btn {
+        background-color: #fff3e0;
+        color: #f57c00;
+      }
+
+      .update-btn:hover {
+        background-color: #ffe0b2;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 30px;
+      }
+
+      .pagination button {
+        padding: 8px 12px;
+        margin: 0 5px;
+        border: 1px solid #ddd;
+        background-color: white;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+
+      .pagination button:hover {
+        background-color: #f5f5f5;
+        border-color: #000000;
+      }
+
+      .pagination button.active {
+        background-color: #000000;
+        color: white;
+        border-color: #000000;
+      }
+
+      /* Grid System for Orders */
+      .orders-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+      }
+
+      .order-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        margin-bottom: 20px;
+        transition: transform 0.2s ease;
+      }
+
+      .order-card:nth-child(n + 5) {
+        display: none;
+      }
+
+      .order-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-color: #000000;
+      }
+
+      .order-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .order-details {
+        padding: 15px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .order-id {
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+      }
+
+      .order-status {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .order-info {
+        margin-bottom: 15px;
+        flex-grow: 1;
+      }
+
+      .order-info p {
+        margin: 5px 0;
+        color: #666;
+        font-size: 14px;
+      }
+
+      .order-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: auto;
+      }
+
+      .order-actions button {
+        flex: 1;
+        padding: 8px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+      }
+
+      .filters {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      .filters .form-select,
+      .filters .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+
+      .filters .form-select:focus,
+      .filters .form-control:focus {
+        border-color: #006027;
+        box-shadow: 0 0 0 0.2rem rgba(0, 96, 39, 0.25);
+      }
+
+      .search-container {
+        position: relative;
+        width: 300px;
+      }
+
+      .search-container input {
+        width: 100%;
+        padding: 8px 15px;
+        padding-right: 40px;
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+      }
+
+      .search-container i {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+      }
+
+      @media (max-width: 768px) {
+        .filters {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .filter-group {
+          margin-bottom: 10px;
+        }
+
+        .search-container {
+          width: 100%;
+          margin-top: 10px;
+        }
+
+        .orders-table {
+          display: block;
+          overflow-x: auto;
+        }
+      }
+
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+      }
+
+      .right-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      .nav-links li a {
+        font-size: 14px;
+      }
+
+      .btn-primary {
+        background-color: #000000;
+        border-color: #000000;
+      }
+
+      .btn-primary:hover {
+        background-color: #333333;
+        border-color: #333333;
+      }
+
+      .pagination .page-item.active .page-link {
+        background-color: #000000;
+        border-color: #000000;
+        color: white;
+      }
+
+      .pagination .page-link {
+        color: #000000;
+      }
+
+      .pagination .page-link:hover {
+        background-color: #333333;
+        border-color: #333333;
+        color: white;
+      }
+
+      .page-item.active {
+        background-color: #000000;
+        border-color: #000000;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="left-section">
+          <i class="fas fa-map-marker-alt"></i>
+          <a href="../Frontend/ComingSoonPage.html" class="store-link"
+            >Find a store.</a
+          >
+        </div>
+        <div class="center-section">
+          <h1 class="logo">Fusion Furnish</h1>
+        </div>
+        <div class="right-section">
+          <div class="search-signout">
+            <a
+              href="../Frontend/signIn_signUp.html"
+              class="btn btn-dark sign-in-btn"
+              >Sign Out</a
+            >
+          </div>
+          <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+      <nav class="nav">
+        <div class="menu-icon" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <h1 class="text-center mb-4">Orders Management</h1>
+
+        <!-- Orders Grid -->
+        <div class="orders-grid">
+          <!-- Order Card 1 -->
+          <div class="order-card">
+            <img
+              src="../Frontend/images/sofa.jpg"
+              alt="Modern Sofa"
+              class="order-image"
+            />
+            <div class="order-details">
+              <div class="order-header">
+                <span class="order-id">#ORD-2024-001</span>
+                <span class="order-status status-accepted">Accepted</span>
+              </div>
+              <div class="order-info">
+                <p><strong>Product:</strong> Modern Sofa</p>
+                <p><strong>Customer:</strong> John Doe</p>
+                <p><strong>Date:</strong> Mar 15, 2024</p>
+                <p><strong>Dimensions:</strong> 84" x 38" x 34"</p>
+              </div>
+              <div class="order-actions">
+                <button class="view-btn">View Details</button>
+                <button
+                  class="update-btn"
+                  onclick="window.location.href='update-status.html?id=#ORD-2024-001'"
+                >
+                  Update Status
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Card 2 -->
+          <div class="order-card">
+            <img
+              src="../Frontend/images/table.jpg"
+              alt="Dining Table"
+              class="order-image"
+            />
+            <div class="order-details">
+              <div class="order-header">
+                <span class="order-id">#ORD-2024-002</span>
+                <span class="order-status status-completed">Completed</span>
+              </div>
+              <div class="order-info">
+                <p><strong>Product:</strong> Dining Table</p>
+                <p><strong>Customer:</strong> Jane Smith</p>
+                <p><strong>Date:</strong> Mar 14, 2024</p>
+                <p><strong>Dimensions:</strong> 72" x 36" x 30"</p>
+              </div>
+              <div class="order-actions">
+                <button class="view-btn">View Details</button>
+                <button
+                  class="update-btn"
+                  onclick="window.location.href='update-status.html?id=#ORD-2024-002'"
+                >
+                  Update Status
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Card 3 -->
+          <div class="order-card">
+            <img
+              src="../Frontend/images/chair.jpg"
+              alt="Office Chair"
+              class="order-image"
+            />
+            <div class="order-details">
+              <div class="order-header">
+                <span class="order-id">#ORD-2024-003</span>
+                <span class="order-status status-delivered">Delivered</span>
+              </div>
+              <div class="order-info">
+                <p><strong>Product:</strong> Office Chair</p>
+                <p><strong>Customer:</strong> Mike Johnson</p>
+                <p><strong>Date:</strong> Mar 13, 2024</p>
+                <p><strong>Dimensions:</strong> 26" x 26" x 42"</p>
+              </div>
+              <div class="order-actions">
+                <button class="view-btn">View Details</button>
+                <button
+                  class="update-btn"
+                  onclick="window.location.href='update-status.html?id=#ORD-2024-003'"
+                >
+                  Update Status
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Card 4 -->
+          <div class="order-card">
+            <img
+              src="../Frontend/images/furniture1.jpg"
+              alt="Bed Frame"
+              class="order-image"
+            />
+            <div class="order-details">
+              <div class="order-header">
+                <span class="order-id">#ORD-2024-004</span>
+                <span class="order-status status-accepted">Accepted</span>
+              </div>
+              <div class="order-info">
+                <p><strong>Product:</strong> King Size Bed Frame</p>
+                <p><strong>Customer:</strong> Sarah Williams</p>
+                <p><strong>Date:</strong> Mar 12, 2024</p>
+                <p><strong>Dimensions:</strong> 76" x 80" x 14"</p>
+              </div>
+              <div class="order-actions">
+                <button class="view-btn">View Details</button>
+                <button
+                  class="update-btn"
+                  onclick="window.location.href='update-status.html?id=#ORD-2024-004'"
+                >
+                  Update Status
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Card 5 -->
+          <div class="order-card">
+            <img
+              src="../Frontend/images/furniture4.jpg"
+              alt="Bookshelf"
+              class="order-image"
+            />
+            <div class="order-details">
+              <div class="order-header">
+                <span class="order-id">#ORD-2024-005</span>
+                <span class="order-status status-completed">Completed</span>
+              </div>
+              <div class="order-info">
+                <p><strong>Product:</strong> Modern Bookshelf</p>
+                <p><strong>Customer:</strong> Robert Chen</p>
+                <p><strong>Date:</strong> Mar 11, 2024</p>
+                <p><strong>Dimensions:</strong> 36" x 12" x 72"</p>
+              </div>
+              <div class="order-actions">
+                <button class="view-btn">View Details</button>
+                <button
+                  class="update-btn"
+                  onclick="window.location.href='update-status.html?id=#ORD-2024-005'"
+                >
+                  Update Status
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Card 6 -->
+          <div class="order-card">
+            <img
+              src="../Frontend/images/furniture6.jpg"
+              alt="Coffee Table"
+              class="order-image"
+            />
+            <div class="order-details">
+              <div class="order-header">
+                <span class="order-id">#ORD-2024-006</span>
+                <span class="order-status status-delivered">Delivered</span>
+              </div>
+              <div class="order-info">
+                <p><strong>Product:</strong> Glass Coffee Table</p>
+                <p><strong>Customer:</strong> Emily Davis</p>
+                <p><strong>Date:</strong> Mar 10, 2024</p>
+                <p><strong>Dimensions:</strong> 48" x 24" x 18"</p>
+              </div>
+              <div class="order-actions">
+                <button class="view-btn">View Details</button>
+                <button
+                  class="update-btn"
+                  onclick="window.location.href='update-status.html?id=#ORD-2024-006'"
+                >
+                  Update Status
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <button class="active">1</button>
+          <button>2</button>
+          <button>Next</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function toggleMenu() {
+        const navLinks = document.querySelector(".nav-links");
+        navLinks.classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>
