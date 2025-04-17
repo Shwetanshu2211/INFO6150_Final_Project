@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Order Status - Fusion Furnish</title>
+    <link rel="icon" href="../Frontend/images/furniturefav.png" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="dashboard.css" />
+    <style>
+      body {
+        background-image: url("artist_background.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+      }
+
+      .main-content {
+        padding: 20px;
+        min-height: calc(100vh - 80px); /* Adjust based on header height */
+      }
+
+      .status-update-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .order-details-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .order-image {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      .order-info {
+        margin-bottom: 20px;
+      }
+
+      .order-info p {
+        margin: 10px 0;
+        color: #666;
+      }
+
+      .status-badge {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .status-accepted {
+        background-color: #e3f2fd;
+        color: #1976d2;
+      }
+
+      .status-completed {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      .status-delivered {
+        background-color: #f3e5f5;
+        color: #7b1fa2;
+      }
+
+      .status-options {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      .form-check {
+        margin-bottom: 15px;
+      }
+
+      .form-check-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .form-check-input {
+        margin-right: 10px;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .action-buttons button {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-cancel {
+        background-color: #f8f9fa;
+        color: #6c757d;
+      }
+
+      .btn-cancel:hover {
+        background-color: #e9ecef;
+      }
+
+      .btn-save {
+        background-color: #000000;
+        color: white;
+      }
+
+      .btn-save:hover {
+        background-color: #333333;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        color: #000000;
+        text-decoration: none;
+        margin-bottom: 20px;
+      }
+
+      .back-link i {
+        margin-right: 5px;
+      }
+
+      .back-link:hover {
+        color: #333333;
+      }
+
+      /* Progress Bar Styles */
+      .progress-container {
+        margin: 30px 0;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .progress-steps {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        margin-bottom: 30px;
+      }
+
+      .progress-steps::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        height: 4px;
+        width: 100%;
+        background-color: #e0e0e0;
+        z-index: 1;
+      }
+
+      .progress-bar {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        height: 4px;
+        background-color: #000000;
+        z-index: 2;
+        width: 28.5%; /* For step 2 */
+      }
+
+      .step {
+        position: relative;
+        z-index: 3;
+        background-color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        border: 2px solid #e0e0e0;
+        color: #666;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .step:hover {
+        transform: scale(1.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .step.active {
+        border-color: #000000;
+        color: #000000;
+      }
+
+      .step.completed {
+        background-color: #000000;
+        border-color: #000000;
+        color: white;
+      }
+
+      .step-label {
+        position: absolute;
+        top: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+        width: max-content;
+      }
+
+      .step.active .step-label {
+        color: #000000;
+        font-weight: 500;
+      }
+
+      .step.completed .step-label {
+        color: #000000;
+      }
+
+      .progress-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .progress-btn {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-prev {
+        background-color: #f8f9fa;
+        color: #6c757d;
+      }
+
+      .btn-prev:hover {
+        background-color: #e9ecef;
+      }
+
+      .btn-next {
+        background-color: #000000;
+        color: white;
+      }
+
+      .btn-next:hover {
+        background-color: #333333;
+      }
+
+      .btn-disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .btn-primary {
+        background-color: #000000;
+        border-color: #000000;
+      }
+
+      .btn-primary:hover {
+        background-color: #333333;
+        border-color: #333333;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="left-section">
+          <i class="fas fa-map-marker-alt"></i>
+          <a href="../Frontend/ComingSoonPage.html" class="store-link"
+            >Find a store.</a
+          >
+        </div>
+        <div class="center-section">
+          <h1 class="logo">Fusion Furnish</h1>
+        </div>
+        <div class="right-section">
+          <div class="search-signout">
+            <a
+              href="../Frontend/signIn_signUp.html"
+              class="btn btn-dark sign-in-btn"
+              >Sign Out</a
+            >
+          </div>
+          <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+      <nav class="nav">
+        <div class="menu-icon" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <div class="status-update-container">
+        <a href="orders.html" class="back-link">
+          <i class="fas fa-arrow-left"></i> Back to Orders
+        </a>
+
+        <h1 class="text-center mb-4">Update Order Status</h1>
+
+        <div class="order-details-card">
+          <img
+            src="../Frontend/images/sofa.jpg"
+            alt="Product Image"
+            class="order-image"
+          />
+
+          <div class="order-info">
+            <h4>#ORD-2024-001</h4>
+            <p><strong>Product:</strong> Modern Sofa</p>
+            <p><strong>Customer:</strong> John Doe</p>
+            <p><strong>Date:</strong> Mar 15, 2024</p>
+            <p><strong>Dimensions:</strong> 84" x 38" x 34"</p>
+            <p>
+              <strong>Current Status:</strong>
+              <span class="status-badge status-accepted">Accepted</span>
+            </p>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="progress-container">
+            <h5 class="mb-3">Order Progress</h5>
+            <div class="progress-steps">
+              <div class="progress-bar"></div>
+              <button class="step completed" data-step="1">
+                <span>1</span>
+                <span class="step-label">Order Accepted</span>
+              </button>
+              <button class="step active" data-step="2">
+                <span>2</span>
+                <span class="step-label">Material Acquired</span>
+              </button>
+              <button class="step" data-step="3">
+                <span>3</span>
+                <span class="step-label">Started Preparing</span>
+              </button>
+              <button class="step" data-step="4">
+                <span>4</span>
+                <span class="step-label">Halfway Done</span>
+              </button>
+              <button class="step" data-step="5">
+                <span>5</span>
+                <span class="step-label">Final Touches</span>
+              </button>
+              <button class="step" data-step="6">
+                <span>6</span>
+                <span class="step-label">Ready to Ship</span>
+              </button>
+              <button class="step" data-step="7">
+                <span>7</span>
+                <span class="step-label">Delivered</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button
+              class="btn-cancel"
+              onclick="window.location.href='orders.html'"
+            >
+              Cancel
+            </button>
+            <button class="btn-save">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function toggleMenu() {
+        const navLinks = document.querySelector(".nav-links");
+        navLinks.classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>
