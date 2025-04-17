@@ -115,6 +115,12 @@
         margin-bottom: 1rem;
         display: block;
       }
+
+      .alert {
+        display: none;
+        margin-top: 1rem;
+        width: 100%;
+      }
     </style>
   </head>
   <body>
@@ -133,7 +139,7 @@
       <div class="right_container">
         <h2 id="title" class="mb-4">Sign In</h2>
 
-        <form method="post" id="authForm" class="w-50" action="homepage.html">
+        <form method="post" id="authForm" class="w-50">
           <div id="nameFields" style="display: none">
             <div class="form-group">
               <input
@@ -175,6 +181,21 @@
             <span class="error" id="passwordError"></span>
           </div>
 
+          <div id="securityQuestionField" style="display: none">
+            <div class="form-group">
+              <label class="form-label">Security Question</label>
+              <p class="text-muted mb-2">What was your first pet's name?</p>
+              <input
+                type="text"
+                id="securityAnswer"
+                class="form-control"
+                placeholder="Enter your answer"
+              />
+            </div>
+          </div>
+
+          <div class="alert alert-danger" id="apiError" role="alert"></div>
+
           <div class="form-group">
             <button type="submit" class="btn btn-custom" id="submitButton">
               Login
@@ -189,6 +210,7 @@
     </main>
 
     <script>
+      const API_URL = "http://localhost:5001/api";
       const toggleLink = document.getElementById("toggleForm");
       const title = document.getElementById("title");
       const nameFields = document.getElementById("nameFields");
@@ -198,27 +220,133 @@
       const passwordInput = document.getElementById("password");
       const emailError = document.getElementById("emailError");
       const passwordError = document.getElementById("passwordError");
+      const apiError = document.getElementById("apiError");
+      let isSignUp = false;
+
+      // Function to show API error
+      function showApiError(message) {
+        apiError.textContent = message;
+        apiError.style.display = "block";
+      }
+
+      // Function to hide API error
+      function hideApiError() {
+        apiError.style.display = "none";
+      }
+
+      // Function to handle sign up
+      async function handleSignUp(
+        firstName,
+        lastName,
+        email,
+        password,
+        securityAnswer
+      ) {
+        try {
+          const userData = {
+            name: `${firstName} ${lastName}`,
+            email,
+            password,
+            securityQuestion: "What was your first pet's name?",
+            securityAnswer,
+            role: "customer",
+          };
+
+          console.log("Sending registration data:", userData);
+
+          const response = await fetch(`${API_URL}/users/register`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          });
+
+          const data = await response.json();
+          console.log("Registration response:", data);
+
+          if (!response.ok) {
+            throw new Error(data.message || "Registration failed");
+          }
+
+          // Store token in localStorage
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+
+          // Redirect to homepage
+          window.location.href = "homepage.html";
+        } catch (error) {
+          showApiError(error.message);
+        }
+      }
+
+      // Function to handle sign in
+      async function handleSignIn(email, password) {
+        try {
+          const response = await fetch(`${API_URL}/users/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email,
+              password,
+            }),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Login failed");
+          }
+
+          // Store token in localStorage
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+
+          // Redirect based on user role
+          if (data.user.role === "artist") {
+            window.location.href = "artists/dashboard.html";
+          } else if (data.user.role === "admin") {
+            window.location.href = "admin/table.html";
+          } else {
+            window.location.href = "homepage.html";
+          }
+        } catch (error) {
+          showApiError(error.message);
+        }
+      }
 
       toggleLink.addEventListener("click", (e) => {
         e.preventDefault();
-        if (title.innerText === "Sign In") {
+        isSignUp = !isSignUp;
+
+        if (isSignUp) {
           title.innerText = "Sign Up";
           nameFields.style.display = "block";
+          securityQuestionField.style.display = "block";
           submitButton.innerText = "Register";
           toggleLink.innerHTML =
             "Already have an account? <a href='#'>Sign In</a>";
+          document.getElementById("securityAnswer").required = true;
         } else {
           title.innerText = "Sign In";
           nameFields.style.display = "none";
+          securityQuestionField.style.display = "none";
           submitButton.innerText = "Login";
           toggleLink.innerHTML =
             "Don't have an account? <a href='#'>Sign Up</a>";
+          document.getElementById("securityAnswer").required = false;
         }
+
         authForm.reset();
+        hideApiError();
       });
 
-      authForm.addEventListener("submit", (e) => {
+      authForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+        hideApiError();
+
         const emailValue = emailInput.value;
         const passwordValue = passwordInput.value;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -228,14 +356,32 @@
         emailError.innerText = emailRegex.test(emailValue)
           ? ""
           : "Invalid email format";
-
         passwordError.innerText = passwordRegex.test(passwordValue)
           ? ""
-          : "Password must include uppercase, \n number, and special character.";
+          : "Password must include uppercase, number, and special character.";
 
         if (emailError.innerText === "" && passwordError.innerText === "") {
-          // Redirect to homepage.html after successful form validation
-          window.location.href = "homepage.html";
+          if (isSignUp) {
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            const securityAnswer =
+              document.getElementById("securityAnswer").value;
+
+            if (!firstName || !lastName || !securityAnswer) {
+              showApiError("Please fill in all fields");
+              return;
+            }
+
+            await handleSignUp(
+              firstName,
+              lastName,
+              emailValue,
+              passwordValue,
+              securityAnswer
+            );
+          } else {
+            await handleSignIn(emailValue, passwordValue);
+          }
         }
       });
     </script>
