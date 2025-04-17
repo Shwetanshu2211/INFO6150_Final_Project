@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fusion Furnish | Shopping Cart</title>
+    <link rel="icon" href="images/furniturefav.png">
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        .cart-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .cart-item {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .quantity-control {
+            width: 120px;
+        }
+        .remove-item {
+            color: #dc3545;
+            cursor: pointer;
+        }
+        .cart-summary {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 50px;
+        }
+        .empty-cart i {
+            font-size: 48px;
+            color: #006027;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="header-content">
+        <div class="left-section">
+            <i class="fas fa-map-marker-alt"></i>
+            <a href="ComingSoonPage.html" class="store-link">Find a store.</a>
+        </div>
+        <div class="center-section">
+            <h1 class="logo">Fusion Furnish</h1>
+        </div>
+        <div class="right-section">
+            <input type="text" placeholder="What can we help you find?" class="search-bar">
+            <i class="fas fa-search search-icon"></i>
+            <i class="fas fa-shopping-bag cart-icon"></i>
+            <a href="signIn_signUp.html" class="btn btn-dark sign-in-btn">Sign In</a>
+        </div>
+    </div>
+    <nav class="nav">
+        <div class="menu-icon" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links">
+            <li><a href="homepage.html#explore-now">Explore</a></li>
+            <li><a href="homepage.html#offerings">Our Offerings</a></li>
+            <li><a href="homepage.html#about-us">About Us</a></li>
+            <li><a href="homepage.html#meet-designers">Designers</a></li>
+            <li><a href="homepage.html#assistance-faq">FAQs</a></li>
+            <li><a href="homepage.html#Reviews">Reviews</a></li>
+            <li><a href="order-history.html">Order History</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="cart-container">
+    <h2 class="mb-4">Your Shopping Cart</h2>
+    
+    <div id="cart-items">
+        <!-- Cart items will be dynamically added here -->
+    </div>
+
+    <div id="empty-cart" class="empty-cart" style="display: none;">
+        <i class="fas fa-shopping-cart"></i>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added any items to your cart yet.</p>
+        <a href="products.html" class="btn btn-dark">Continue Shopping</a>
+    </div>
+
+    <div id="cart-summary" class="cart-summary" style="display: none;">
+        <h4>Order Summary</h4>
+        <div class="d-flex justify-content-between mb-2">
+            <span>Subtotal:</span>
+            <span id="subtotal">$0.00</span>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+            <span>Shipping:</span>
+            <span>Free</span>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+            <span>Total:</span>
+            <span id="total" class="fw-bold">$0.00</span>
+        </div>
+        <a href="checkout.html" class="btn btn-success w-100 mb-2">Proceed to Checkout</a>
+        <a href="products.html" class="btn btn-outline-dark w-100">Continue Shopping</a>
+    </div>
+</div>
+
+<script>
+    // Load cart items from localStorage
+    function loadCart() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItemsContainer = document.getElementById('cart-items');
+        const emptyCart = document.getElementById('empty-cart');
+        const cartSummary = document.getElementById('cart-summary');
+        
+        if (cart.length === 0) {
+            cartItemsContainer.style.display = 'none';
+            emptyCart.style.display = 'block';
+            cartSummary.style.display = 'none';
+            return;
+        }
+
+        cartItemsContainer.style.display = 'block';
+        emptyCart.style.display = 'none';
+        cartSummary.style.display = 'block';
+
+        cartItemsContainer.innerHTML = '';
+        let subtotal = 0;
+
+        cart.forEach((item, index) => {
+            subtotal += item.price * item.quantity;
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cart-item';
+            itemElement.innerHTML = `
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="col-md-4">
+                        <h5>${item.name}</h5>
+                        <p class="text-muted">${item.description}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group quantity-control">
+                            <button class="btn btn-outline-secondary" onclick="updateQuantity(${index}, -1)">-</button>
+                            <input type="number" class="form-control text-center" value="${item.quantity}" min="1" onchange="updateQuantityInput(${index}, this.value)">
+                            <button class="btn btn-outline-secondary" onclick="updateQuantity(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-end">
+                        <span class="fw-bold">$${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                    <div class="col-md-2 text-end">
+                        <i class="fas fa-trash remove-item" onclick="removeItem(${index})"></i>
+                    </div>
+                </div>
+            `;
+            cartItemsContainer.appendChild(itemElement);
+        });
+
+        document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+        document.getElementById('total').textContent = `$${subtotal.toFixed(2)}`;
+    }
+
+    function updateQuantity(index, change) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart[index].quantity = Math.max(1, cart[index].quantity + change);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+    }
+
+    function updateQuantityInput(index, value) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart[index].quantity = Math.max(1, parseInt(value));
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+    }
+
+    function removeItem(index) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+    }
+
+    function checkout() {
+        // Redirect to checkout page or show checkout form
+        alert('Proceeding to checkout...');
+    }
+
+    // Load cart when page loads
+    document.addEventListener('DOMContentLoaded', loadCart);
+</script>
+</body>
+</html> 
