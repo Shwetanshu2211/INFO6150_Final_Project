@@ -116,6 +116,14 @@ const UserManagement: React.FC = () => {
     }
   };
 
+  const handleLogout = () => {
+    // Clear the auth token and user data
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    // Navigate to signup page
+    navigate('/signup');
+  };
+
   if (loading) {
     return <div className="text-center mt-5">Loading...</div>;
   }
@@ -126,82 +134,87 @@ const UserManagement: React.FC = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container">
-          <div className="navbar-nav">
-            <a className="nav-link" href="/homepage">Home</a>
-            <a className="nav-link" href="/gallery">Gallery</a>
-            <a className="nav-link" href="/orders">Orders</a>
-            <a className="nav-link" href="/contact">Contact</a>
-          </div>
-          <div className="navbar-nav ms-auto">
-            <Button variant="outline-light" className="me-2" onClick={() => navigate('/add-artist')}>Add Artist</Button>
+      <nav 
+        className="navbar navbar-dark bg-dark fixed-top"
+        style={{ backgroundColor: 'rgba(0, 0, 0, 0.5) !important' }}
+      >
+        <div className="container-fluid">
+          <Button 
+            variant="outline-light" 
+            className="me-2" 
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+          <div className="navbar-nav ms-auto d-flex flex-row">
+            <Button variant="outline-light" className="me-2" onClick={() => navigate('/admin/add-artist')}>Add Artist</Button>
             <Button variant="outline-light" className="me-2" onClick={() => navigate('/upload-product')}>Upload Product</Button>
             <Button variant="outline-light" onClick={() => navigate('/manage-orders')}>Manage Orders</Button>
           </div>
         </div>
       </nav>
 
-      <Container className="mt-4">
-        <h1 className="text-center mb-4">User Management</h1>
+      <div className="container">
+        <h1>User Management</h1>
         
         <Form onSubmit={handleSearch} className="mb-4">
-          <div className="d-flex">
+          <div className="d-flex align-items-stretch">
             <Form.Control
               type="text"
               placeholder="Search users..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="me-2"
+              className="flex-grow-1 me-2"
+              style={{ borderRadius: "4px" }}
             />
-            <Button variant="dark" type="submit">Search</Button>
+            <Button 
+              variant="dark" 
+              type="submit" 
+              className="search-btn"
+              style={{ 
+                borderRadius: "4px",
+                height: '100%',
+                paddingLeft: '1.5rem',
+                paddingRight: '1.5rem'
+              }}
+            >
+              Search
+            </Button>
           </div>
         </Form>
 
-        <Table bordered hover responsive>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Address</th>
-              <th>Created At</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <tr key={user._id}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                  {user.address ? (
-                    <>
-                      {user.address.street && <div>{user.address.street}</div>}
-                      {user.address.city && <div>{user.address.city}</div>}
-                      {user.address.state && <div>{user.address.state}</div>}
-                      {user.address.zipCode && <div>{user.address.zipCode}</div>}
-                      {user.address.country && <div>{user.address.country}</div>}
-                    </>
-                  ) : (
-                    'No address provided'
-                  )}
-                </td>
-                <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                <td>
-                  <Button 
-                    variant="danger"
-                    onClick={() => handleDelete(user._id)}
-                  >
-                    Delete
-                  </Button>
-                </td>
+        <div className="user-table">
+          <Table bordered hover responsive>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Created At</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Container>
+            </thead>
+            <tbody>
+              {users.map(user => (
+                <tr key={user._id}>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.role}</td>
+                  <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+                  <td>
+                    <Button 
+                      variant="danger"
+                      onClick={() => handleDelete(user._id)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      </div>
     </div>
   );
 };
