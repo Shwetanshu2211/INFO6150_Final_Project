@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Container, Row, Col, Carousel, Card, Button, Accordion } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faShoppingBag, faBars, faCouch, faRecycle, faSmile } from '@fortawesome/free-solid-svg-icons';
@@ -12,17 +13,20 @@ const Homepage: React.FC = () => {
         <div className="header-content">
           <div className="left-section">
             {/* Removed FontAwesomeIcon and link */}
+
           </div>
           <div className="center-section">
             <h1 className="logo">Fusion Furnish</h1>
           </div>
           <div className="right-section">
+
             <FontAwesomeIcon icon={faShoppingBag} className="cart-icon" />
             <Button variant="dark" className="sign-in-btn btn-standard-dark">Sign In</Button>
           </div>
         </div>
         <nav className="nav">
           <div className="menu-icon">
+
             <FontAwesomeIcon icon={faBars} />
           </div>
           <ul className="nav-links">
@@ -31,11 +35,14 @@ const Homepage: React.FC = () => {
             <li><a href="#about-us">About Us</a></li>
             <li><a href="#meet-designers">Designers</a></li>
             <li><a href="#assistance-faq">FAQs</a></li>
+
             <li><a href="#reviews">Reviews</a></li>
             <li><a href="/order-history">Order History</a></li>
+
           </ul>
         </nav>
       </header>
+
 
       {/* Explore Now Section */}
       <section id="explore-now" className="section py-5 mb-5">
@@ -457,6 +464,7 @@ const Homepage: React.FC = () => {
         </Container>
       </section>
     </div>
+
   );
 };
 
