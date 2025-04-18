@@ -17,6 +17,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
   const userRole = user.role.toLowerCase();
   const required = requiredRole.toLowerCase();
 
+  // Give admin access to all routes
+  if (userRole === 'admin') {
+    return <>{children}</>;
+  }
+
+  // For non-admin users, check if they have the required role
   if (userRole !== required) {
     return <Navigate to="/login" />;
   }
