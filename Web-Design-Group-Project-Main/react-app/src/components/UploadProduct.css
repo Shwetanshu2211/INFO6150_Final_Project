@@ -1,0 +1,66 @@
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.nav-link {
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ffffff !important;
+}
+
+.upload-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.form-control {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+}
+
+.form-control:focus {
+  border-color: #666;
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.1);
+}
+
+.btn-dark {
+  padding: 0.75rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-dark:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline-light {
+  border-width: 2px;
+  font-weight: 500;
+}
+
+.btn-outline-light:hover {
+  transform: translateY(-1px);
+}
+
+.alert {
+  margin-bottom: 2rem;
+} 
