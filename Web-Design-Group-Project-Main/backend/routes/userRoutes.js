@@ -1,13 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { 
-  register, 
-  login, 
-  getProfile, 
-  updateProfile, 
-  getAllUsers,
-  deleteUser 
-} = require('../controllers/userController');
+
+const { register, login, getProfile, updateProfile } = require('../controllers/userController');
+
 const { auth } = require('../middleware/auth');
 
 // Public routes
@@ -18,8 +13,5 @@ router.post('/login', login);
 router.get('/profile', auth, getProfile);
 router.put('/profile', auth, updateProfile);
 
-// Admin routes
-router.get('/', auth, getAllUsers);
-router.delete('/:id', auth, deleteUser);
 
 module.exports = router; 
