@@ -1,0 +1,133 @@
+.navbar {
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: white !important;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.nav-link:hover {
+  color: #ccc !important;
+}
+
+/* Navbar Button Styles */
+.navbar .btn {
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.navbar .btn-outline-light:hover {
+  background-color: #fff;
+  color: #212529;
+}
+
+.navbar .ms-auto {
+  margin-left: auto;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.table {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.table td, .table th {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.table td {
+  font-size: 0.95rem;
+}
+
+.table td > div {
+  margin-bottom: 0.25rem;
+}
+
+.table td > div:last-child {
+  margin-bottom: 0;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+  padding: 0.5rem 1.5rem;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.form-control {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.d-flex {
+  gap: 1rem;
+}
+
+.btn-dark {
+  padding: 0.5rem 2rem;
+}
+
+/* Loading and Error States */
+.text-center {
+  text-align: center;
+}
+
+.mt-5 {
+  margin-top: 3rem;
+}
+
+.text-danger {
+  color: #dc3545;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+} 

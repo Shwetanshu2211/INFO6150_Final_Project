@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './components/Login';
+import UserManagement from './components/UserManagement';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Auth from './components/Auth/Auth';
 import Homepage from './components/Homepage/Homepage';
 import Dashboard from './components/Artist/Dashboard';
-import Table from './components/Admin/Table';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Auth />} />
-          <Route path="/login" element={<Auth />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Auth />} />
           
           <Route path="/homepage" element={
@@ -29,9 +30,9 @@ function App() {
             </ProtectedRoute>
           } />
           
-          <Route path="/admin/table" element={
+          <Route path="/admin/user-management" element={
             <ProtectedRoute requiredRole="admin">
-              <Table />
+              <UserManagement />
             </ProtectedRoute>
           } />
           
