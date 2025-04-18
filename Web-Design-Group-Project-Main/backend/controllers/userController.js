@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 // Generate JWT Token
 const generateToken = (userId) => {
@@ -7,7 +8,7 @@ const generateToken = (userId) => {
 };
 
 // Register new user
-exports.register = async (req, res) => {
+const register = async (req, res) => {
   try {
     const { name, email, password, securityQuestion, securityAnswer, role } = req.body;
 
@@ -48,7 +49,7 @@ exports.register = async (req, res) => {
 };
 
 // Login user
-exports.login = async (req, res) => {
+const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -83,7 +84,7 @@ exports.login = async (req, res) => {
 };
 
 // Get user profile
-exports.getProfile = async (req, res) => {
+const getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select('-password');
     res.json(user);
@@ -93,7 +94,7 @@ exports.getProfile = async (req, res) => {
 };
 
 // Update user profile
-exports.updateProfile = async (req, res) => {
+const updateProfile = async (req, res) => {
   try {
     const updates = req.body;
     const allowedUpdates = ['name', 'email', 'password', 'address'];
@@ -119,4 +120,48 @@ exports.updateProfile = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error updating profile', error: error.message });
   }
+};
+
+// Get all users (admin only)
+const getAllUsers = async (req, res) => {
+  try {
+    // Check if user is admin
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Access denied. Admin only.' });
+    }
+
+    const users = await User.find({}).select('-password -securityAnswer');
+    res.json(users);
+  } catch (error) {
+    console.error('Error in getAllUsers:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// Delete user (admin only)
+const deleteUser = async (req, res) => {
+  try {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Access denied. Admin only.' });
+    }
+
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+module.exports = {
+  register,
+  login,
+  getProfile,
+  updateProfile,
+  getAllUsers,
+  deleteUser
 }; 
