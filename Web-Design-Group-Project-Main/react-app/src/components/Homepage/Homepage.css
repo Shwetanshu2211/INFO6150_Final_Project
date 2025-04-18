@@ -1,0 +1,1170 @@
+
+/* Reset and Global Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #000000;
+  color: #000;
+  line-height: 1.5;
+}
+
+/* Header Styles */
+.header {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: black;
+  padding: 15px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid #006A4E; /* Bottle green border */
+
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  max-width: 1400px;
+  padding-bottom: 10px;
+
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+
+}
+
+.left-section i {
+  margin-right: 5px;
+}
+
+.store-link {
+  color: black;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.center-section .logo {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: linear-gradient(45deg, #000000, #333333); /* Black gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.center-section .logo:hover {
+  transform: scale(1.05);
+
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.search-bar {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  padding: 5px;
+  color: black;
+  outline: none;
+  width: 250px;
+  transition: width 0.3s ease-in-out;
+}
+
+.search-icon, .cart-icon {
+  color: black;
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.sign-in-btn {
+  background: transparent;
+  border: 1px solid #006A4E; /* Bottle green border */
+  color: #006A4E; /* Bottle green text */
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: 500;
+
+  transition: all 0.3s ease;
+}
+
+.sign-in-btn:hover {
+
+  background: #006A4E; /* Bottle green background */
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Navigation Styles */
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.menu-icon {
+  font-size: 22px;
+  cursor: pointer;
+  display: none;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 8px 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #006A4E; /* Bottle green underline */
+  transition: width 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #333333;
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+/* Section Styles */
+.section {
+  padding: 60px 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #006A4E, transparent); /* Bottle green gradient */
+}
+
+/* Carousel Styles */
+.carousel {
+  /* REMOVED height: 100vh; */
+  /* REMOVED width: 100vw; */
+  /* Keep other general carousel styles if any, or leave empty */
+}
+
+.carousel-item {
+  height: 100%;
+}
+
+.carousel-item img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%; /* Ensure image tries to fill width */
+}
+
+/* Specific styles for Explore Now Carousel Images */
+#explore-now .carousel-item img {
+  max-height: 75vh; /* Limit image height */
+  object-fit: cover; /* Ensure image covers the area, might crop */
+  width: 100%; /* Make sure it spans the width */
+}
+
+.carousel-caption {
+  top: 20%;
+  left: 10%;
+  max-width: 500px;
+  font-family: 'Playfair Display', serif;
+  color: #f4f4f4;
+}
+
+.carousel-caption h3 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.carousel-caption p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+/* Card Styles */
+.card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover img {
+  transform: scale(1.08);
+}
+
+/* About Section Styles */
+.about-section {
+  background-color: #f8f9fa;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.about-img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease-in-out;
+}
+
+.about-img:hover {
+  transform: scale(1.03);
+}
+
+.about-content {
+  text-align: left;
+  padding: 20px;
+}
+
+.about-content h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #222;
+}
+
+.about-content p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* Styles for the Values Row */
+.values-row {
+  border-top: 1px solid #e0e0e0;
+}
+
+.value-item {
+  /* Styles for each value proposition column */
+}
+
+.value-icon {
+  color: #006A4E; /* Bottle green icons */
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.value-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.value-description {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Review Box Styles */
+.review-box {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  transition: transform 0.3s ease;
+  border-top: 3px solid #006A4E; /* Bottle green accent */
+}
+
+.review-box:hover {
+  transform: translateY(-5px);
+}
+
+.review-box p {
+  font-style: italic;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.review-box h3 {
+  color: #006d2c;
+  font-size: 1.5em;
+}
+
+/* Offerings Section Styles */
+#offerings {
+  background-color: #ffffff;
+  padding: 80px 0;
+}
+
+.offering-card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.offering-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.offering-img {
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.offering-card:hover .offering-img {
+  transform: scale(1.05);
+}
+
+.offering-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.offering-description {
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.customize-btn {
+  background-color: #006A4E; /* Bottle green background */
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.customize-btn:hover {
+  background-color: #004C38; /* Darker bottle green */
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Shared Button Style */
+.btn-standard-dark {
+  background-color: #006A4E; /* Bottle green background */
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-standard-dark:hover {
+  background-color: #004C38; /* Darker bottle green */
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Meet Our Designers Section Specific Styles */
+.meet-designers {
+  background-color: #fff; /* Or keep transparent if preferred */
+  padding: 80px 0; /* Increased padding */
+}
+
+.meet-designers .section-title {
+  margin-bottom: 4rem !important; /* More space below title */
+  font-weight: bold;
+  font-size: 2.8rem; /* Adjust size as needed */
+}
+
+/* Override default carousel height */
+.meet-designers .carousel {
+  height: auto; /* Let content determine height */
+  width: 100%; /* Use full container width */
+  overflow: hidden; /* Hide overflow if arrows go outside */
+  position: relative; /* Needed for absolute positioning of arrows */
+}
+
+.meet-designers .carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.meet-designers .carousel-item {
+  /* Base styles for all items */
+  position: relative; /* Needed for proper absolute positioning if used by JS */
+  display: none; /* Hide all items by default */
+  padding: 0 60px; /* Add padding so content isn't cut off by arrows */
+  width: 100%;
+  margin-right: -100%;
+  backface-visibility: hidden;
+  transition: transform 0.6s ease-in-out;
+}
+
+.meet-designers .carousel-item.active,
+.meet-designers .carousel-item-next,
+.meet-designers .carousel-item-prev {
+  display: block; /* Show active, next, and prev items for transitions */
+}
+
+/* Bootstrap's sliding mechanism relies on these classes */
+.meet-designers .carousel-item-next:not(.carousel-item-start),
+.meet-designers .active.carousel-item-end {
+  transform: translateX(100%);
+}
+
+.meet-designers .carousel-item-prev:not(.carousel-item-end),
+.meet-designers .active.carousel-item-start {
+  transform: translateX(-100%);
+}
+
+.meet-designers .carousel-item.active {
+  /* The currently visible item */
+  transform: translateX(0);
+  display: block; /* Explicitly ensure active item is displayed */
+}
+
+/* Remove redundant alignment from .carousel-inner as items handle layout */
+/* .meet-designers .carousel-inner {
+  align-items: center; 
+} */
+
+.designer-img {
+  max-width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  max-height: 450px; /* Optional: Limit image height */
+  border-radius: 15px !important; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  object-fit: cover;
+}
+
+.designer-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center text content */
+  height: 100%; /* Take full height of the column */
+}
+
+.designer-name {
+  font-size: 2.2rem; /* Larger name */
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.designer-description {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.designer-know-more-btn {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  align-self: flex-start; /* Align button to the start (left) */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.designer-know-more-btn:hover {
+  background-color: #555; /* Darker hover */
+  transform: translateY(-2px);
+}
+
+/* Custom Carousel Arrow Styles */
+.meet-designers .carousel-control-prev,
+.meet-designers .carousel-control-next {
+  width: 50px; /* Width of the arrow background */
+  height: 50px; /* Height of the arrow background */
+  background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent background */
+  border-radius: 50%; /* Circular background */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%);
+  opacity: 0.7;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.meet-designers .carousel-control-prev:hover,
+.meet-designers .carousel-control-next:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.meet-designers .carousel-control-prev {
+  left: 10px; /* Position left arrow */
+}
+
+.meet-designers .carousel-control-next {
+  right: 10px; /* Position right arrow */
+}
+
+/* Style the actual arrow icon (using bootstrap icons as base) */
+.meet-designers .carousel-control-prev-icon,
+.meet-designers .carousel-control-next-icon {
+  background-image: none; /* Remove default bootstrap background image */
+  width: 25px; /* Size of the arrow */
+  height: 25px; /* Size of the arrow */
+  display: inline-block;
+  position: relative;
+}
+
+/* Create chevron using borders */
+.meet-designers .carousel-control-prev-icon::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-top: 3px solid white;
+  border-left: 3px solid white;
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -4px; /* Adjust positioning */
+  margin-top: -5px;
+}
+
+.meet-designers .carousel-control-next-icon::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-top: 3px solid white;
+  border-right: 3px solid white;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -6px; /* Adjust positioning */
+  margin-top: -5px;
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 768px) {
+  .meet-designers .carousel-item {
+    padding: 0 15px; /* Less padding on smaller screens */
+  }
+
+  .designer-img {
+    max-height: 350px;
+  }
+
+  .designer-info {
+    align-items: center; /* Center text content on small screens */
+  }
+
+  .designer-name {
+    font-size: 1.8rem;
+  }
+
+  .designer-description {
+    font-size: 0.9rem;
+  }
+
+  .designer-know-more-btn {
+    align-self: center; /* Center button */
+  }
+
+  .meet-designers .carousel-control-prev,
+  .meet-designers .carousel-control-next {
+    width: 40px;
+    height: 40px;
+  }
+
+  .meet-designers .carousel-control-prev {
+    left: 5px;
+  }
+
+  .meet-designers .carousel-control-next {
+    right: 5px;
+  }
+}
+
+/* Assistance & FAQ Section Styles */
+.assistance-faq {
+  background-color: #ffffff;
+}
+
+.assistance-title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.assistance-text {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Accordion Styles - Enhanced */
+#faqAccordion .accordion-item {
+  border: none; /* Remove default border */
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Add subtle shadow */
+  border-radius: 8px; /* Add rounded corners */
+  overflow: hidden; /* Ensure shadow respects border-radius */
+}
+
+#faqAccordion .accordion-button {
+  font-weight: 600; /* Slightly bolder */
+  color: #444; /* Darker text */
+  background-color: #ffffff; /* White background */
+  box-shadow: none;
+  padding: 1rem 1.25rem;
+  transition: background-color 0.2s ease-in-out;
+  border-bottom: 1px solid #eee; /* Add subtle separator line */
+}
+
+#faqAccordion .accordion-button:not(.collapsed) {
+  color: #007bff; /* Blue color when active */
+  background-color: #f8f9fa; /* Light background when active */
+  box-shadow: none;
+  border-bottom: 1px solid #e0e0e0; /* Slightly darker separator when active */
+}
+
+#faqAccordion .accordion-button:hover {
+  background-color: #f8f9fa; /* Light background on hover */
+}
+
+#faqAccordion .accordion-button:focus {
+  box-shadow: none;
+  border-color: transparent; /* Remove focus border */
+}
+
+#faqAccordion .accordion-body {
+  padding: 1rem 1.25rem;
+  color: #555; /* Slightly darker body text */
+  line-height: 1.7;
+  background-color: #ffffff; /* Ensure body background is white */
+}
+
+#faqAccordion .accordion-button::after {
+  /* Customize the accordion icon if needed - using default Bootstrap for now */
+  /* Example: background-image: url("data:image/svg+xml,..."); */
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .header {
+    padding: 15px 20px;
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .center-section .logo {
+    font-size: 28px;
+  }
+
+  .menu-icon {
+    display: block;
+    color: white;
+
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+
+    text-align: center;
+    background: rgba(0, 0, 0, 0.05);
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 70px;
+    padding: 15px 0;
+
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+
+  .search-bar {
+    width: 180px;
+  }
+
+  .assistance-title {
+    font-size: 2rem;
+  }
+
+  .assistance-text {
+
+    font-size: 1rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+
+  }
+
+  .search-bar {
+    width: 150px;
+  }
+
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    left: 0;
+    top: 70px;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.3s ease;
+  }
+
+  .menu-icon:hover {
+    transform: rotate(90deg);
+  }
+}
+
+/* Main Content Wrapper */
+.homepage {
+  padding-top: 120px; /* Add padding to account for fixed header */
+}
+
+/* Explore Now Section */
+#explore-now {
+  padding-top: 60px; /* Reduced padding since we have homepage padding */
+  margin-top: 0;
+  position: relative;
+}
+
+#explore-now .section-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+#explore-now .carousel {
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+#explore-now .carousel-item {
+  height: 100%;
+}
+
+#explore-now .carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#explore-now .carousel-caption {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  left: 10%;
+  bottom: 20%;
+  text-align: left;
+}
+
+#explore-now .carousel-caption h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+#explore-now .carousel-caption p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .homepage {
+    padding-top: 100px;
+  }
+  
+  #explore-now {
+    padding-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .homepage {
+    padding-top: 80px;
+  }
+  
+  #explore-now {
+    padding-top: 30px;
+  }
+  
+  #explore-now .section-title {
+    font-size: 2rem;
+  }
+}
+
+/* Reviews Section */
+#reviews {
+  padding: 60px 0;
+  background-color: #f8f9fa;
+}
+
+#reviews .section-title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+#reviews .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #333, transparent);
+}
+
+.review-box {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.review-box:hover {
+  transform: translateY(-5px);
+}
+
+.review-box p {
+  font-style: italic;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.review-box h3 {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.review-box p:last-child {
+  color: #777;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments for Reviews section */
+@media (max-width: 992px) {
+  #reviews {
+    padding: 40px 0;
+  }
+  
+  #reviews .section-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #reviews {
+    padding: 30px 0;
+  }
+  
+  #reviews .section-title {
+    font-size: 2rem;
+  }
+  
+  .review-box {
+    margin-bottom: 20px;
+  }
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #f8f9fa;
+  padding: 40px 0;
+  border-top: 2px solid #006A4E;
+  margin-top: 60px;
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-title {
+  color: #006A4E;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background-color: #006A4E;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+  position: relative;
+}
+
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: #006A4E;
+  transition: width 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #006A4E;
+}
+
+.footer-links a:hover::after {
+  width: 100%;
+}
+
+.footer-contact {
+  margin-top: 20px;
+}
+
+.footer-contact p {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.footer-contact i {
+  color: #006A4E;
+  margin-right: 10px;
+  width: 20px;
+}
+
+.footer-social {
+  margin-top: 30px;
+}
+
+.footer-social a {
+  color: #333;
+  font-size: 20px;
+  margin-right: 15px;
+  transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: #006A4E;
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 106, 78, 0.1);
+  text-align: center;
+  color: #666;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+.footer-bottom a {
+  color: #006A4E;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom a:hover {
+  color: #004C38;
+}
+
+/* Responsive Footer */
+@media (max-width: 992px) {
+  .footer {
+    padding: 30px 0;
+  }
+  
+  .footer-title {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 20px 0;
+  }
+  
+  .footer-title {
+    margin-top: 20px;
+  }
+  
+  .footer-social {
+    margin-top: 20px;
+  }
+}
+
+/* Carousel Indicators */
+.carousel-indicators button {
+  background-color: #006A4E; /* Bottle green indicators */
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-indicators button.active {
+  opacity: 1;
+}
+
+/* Our Offerings Section */
+.view-collection-btn {
+  background-color: #000000; /* Black background */
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.view-collection-btn:hover {
+  background-color: #333333; /* Darker black on hover */
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* About Us Section */
+.learn-more-btn {
+  background-color: #000000; /* Black background */
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.learn-more-btn:hover {
+  background-color: #333333; /* Darker black on hover */
+  color: white;
+  transform: translateY(-2px);
+
+} 
