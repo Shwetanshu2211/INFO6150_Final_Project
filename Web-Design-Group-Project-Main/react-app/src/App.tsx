@@ -1,6 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
+import Login from './components/Login';
+import UserManagement from './components/UserManagement';
+import AddArtist from './components/AddArtist';
+
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Auth from './components/Auth/Auth';
@@ -43,6 +48,12 @@ function App() {
             <ProtectedRoute requiredRole="admin">
               <Table />
 
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/admin/add-artist" element={
+            <ProtectedRoute requiredRole="admin">
+              <AddArtist />
             </ProtectedRoute>
           } />
           

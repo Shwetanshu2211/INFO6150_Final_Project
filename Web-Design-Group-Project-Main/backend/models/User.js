@@ -38,6 +38,13 @@ const userSchema = new mongoose.Schema({
     state: String,
     zipCode: String,
     country: String
+  },
+  artistInfo: {
+    bio: {
+      type: String,
+      default: ''
+    }
+    // Can add more artist-specific fields here in the future
   }
 }, {
   timestamps: true
