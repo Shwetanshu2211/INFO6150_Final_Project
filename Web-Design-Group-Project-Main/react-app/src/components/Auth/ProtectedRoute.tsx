@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
+
   requiredRole?: string;
 }
 
@@ -18,6 +19,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
   
   if (requiredRole && userData.role !== requiredRole) {
     return <Navigate to="/" replace />;
+
   }
 
   return <>{children}</>;

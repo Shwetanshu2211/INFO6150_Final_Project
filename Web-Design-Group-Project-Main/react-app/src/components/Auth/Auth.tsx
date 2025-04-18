@@ -134,6 +134,7 @@ const Auth: React.FC = () => {
       console.log('Stored token:', data.token.substring(0, 10) + '...');
 
       // Role-based redirection
+
       switch (data.user.role) {
         case 'customer':
           console.log('Redirecting to homepage');
@@ -150,6 +151,7 @@ const Auth: React.FC = () => {
         default:
           console.log('No matching role, redirecting to home');
           navigate('/');
+
       }
     } catch (err) {
       console.error('Authentication error:', err);
