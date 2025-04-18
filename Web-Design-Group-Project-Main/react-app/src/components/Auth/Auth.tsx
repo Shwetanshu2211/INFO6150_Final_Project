@@ -134,15 +134,24 @@ const Auth: React.FC = () => {
       console.log('Stored token:', data.token.substring(0, 10) + '...');
 
       // Role-based redirection
-      if (data.user.role.toLowerCase() === 'admin') {
-        console.log('Redirecting to admin user management');
-        navigate('/admin/user-management');
-      } else if (data.user.role.toLowerCase() === 'artist') {
-        console.log('Redirecting to artist dashboard');
-        navigate('/artists/dashboard');
-      } else {
-        console.log('Redirecting to homepage');
-        navigate('/homepage');
+
+      switch (data.user.role) {
+        case 'customer':
+          console.log('Redirecting to homepage');
+          navigate('/homepage');
+          break;
+        case 'artist':
+          console.log('Redirecting to artist dashboard');
+          navigate('/artists/dashboard');
+          break;
+        case 'admin':
+          console.log('Redirecting to admin table');
+          navigate('/admin/table');
+          break;
+        default:
+          console.log('No matching role, redirecting to home');
+          navigate('/');
+
       }
     } catch (err) {
       console.error('Authentication error:', err);
