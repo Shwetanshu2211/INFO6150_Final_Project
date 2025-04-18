@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Account Settings | Fusion Furnish</title>
+    <link rel="icon" href="images/furniturefav.png" />
+    <link rel="stylesheet" href="homepage.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <style>
+      .settings-container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+
+      .settings-nav {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .settings-nav-items {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 2rem;
+      }
+
+      .settings-nav-item {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+      }
+
+      .settings-nav-item.active {
+        background: #000;
+        color: white;
+      }
+
+      .settings-nav-item:hover:not(.active) {
+        background: #f5f5f5;
+      }
+
+      .settings-section {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        display: none;
+      }
+
+      .settings-section.active {
+        display: block;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: #333;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-control {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 0.75rem;
+      }
+
+      .form-control:focus {
+        border-color: #000;
+        box-shadow: none;
+      }
+
+      .save-btn {
+        background: #000;
+        color: white;
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .save-btn:hover {
+        background: #333;
+        transform: translateY(-2px);
+      }
+
+      .delete-account-btn {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .delete-account-btn:hover {
+        background: #c82333;
+        transform: translateY(-2px);
+      }
+
+      .notification-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .notification-item:last-child {
+        border-bottom: none;
+      }
+
+      .form-switch {
+        padding-left: 3rem;
+      }
+
+      .form-switch .form-check-input {
+        width: 3rem;
+        height: 1.5rem;
+        cursor: pointer;
+      }
+
+      .form-switch .form-check-input:checked {
+        background-color: #000;
+        border-color: #000;
+      }
+
+      .address-card {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        position: relative;
+      }
+
+      .address-card .default-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      .address-actions {
+        margin-top: 1rem;
+        display: flex;
+        gap: 1rem;
+      }
+
+      .edit-address-btn,
+      .remove-address-btn {
+        background: none;
+        border: 1px solid #ddd;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        color: #666;
+        transition: all 0.3s ease;
+      }
+
+      .edit-address-btn:hover {
+        border-color: #000;
+        color: #000;
+      }
+
+      .remove-address-btn:hover {
+        border-color: #dc3545;
+        color: #dc3545;
+      }
+
+      .add-address-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: none;
+        border: 2px dashed #ddd;
+        padding: 1rem;
+        border-radius: 8px;
+        color: #666;
+        width: 100%;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+
+      .add-address-btn:hover {
+        border-color: #000;
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <div class="left-section">
+          <i class="fas fa-map-marker-alt"></i>
+          <a href="ComingSoonPage.html" class="store-link">Find a store.</a>
+        </div>
+        <div class="center-section">
+          <h1 class="logo">Fusion Furnish</h1>
+        </div>
+        <div class="right-section">
+          <input
+            type="text"
+            placeholder="What can we help you find?"
+            class="search-bar"
+          />
+          <i class="fas fa-search search-icon"></i>
+          <a href="cart.html" class="cart-icon">
+            <i class="fas fa-shopping-bag"></i>
+          </a>
+          <button class="btn btn-dark sign-in-btn" onclick="handleLogout()">
+            Logout
+          </button>
+        </div>
+      </div>
+      <nav class="nav">
+        <div class="menu-icon" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links">
+          <li><a href="homepage.html#explore-now">Explore</a></li>
+          <li><a href="homepage.html#offerings">Our Offerings</a></li>
+          <li><a href="homepage.html#about-us">About Us</a></li>
+          <li><a href="homepage.html#meet-designers">Designers</a></li>
+          <li><a href="homepage.html#assistance-faq">FAQs</a></li>
+          <li><a href="homepage.html#Reviews">Reviews</a></li>
+          <li><a href="order-history.html">Order History</a></li>
+          <li><a href="account-settings.html">Account Settings</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="settings-container">
+      <h2 class="mb-4">Account Settings</h2>
+
+      <div class="settings-nav">
+        <ul class="settings-nav-items">
+          <li class="settings-nav-item active" onclick="showSection('profile')">
+            Profile
+          </li>
+          <li class="settings-nav-item" onclick="showSection('addresses')">
+            Addresses
+          </li>
+          <li class="settings-nav-item" onclick="showSection('notifications')">
+            Notifications
+          </li>
+          <li class="settings-nav-item" onclick="showSection('security')">
+            Security
+          </li>
+        </ul>
+      </div>
+
+      <div id="profile" class="settings-section active">
+        <h3 class="section-title">Profile Information</h3>
+        <form id="profile-form">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-control" value="John" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control" value="Doe" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              value="john.doe@example.com"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input type="tel" class="form-control" value="+1 (555) 123-4567" />
+          </div>
+          <button type="submit" class="save-btn">Save Changes</button>
+        </form>
+      </div>
+
+      <div id="addresses" class="settings-section">
+        <h3 class="section-title">Saved Addresses</h3>
+        <div class="address-card">
+          <span class="default-badge">Default</span>
+          <h5>Home</h5>
+          <p>123 Main Street<br />Apt 4B<br />Boston, MA 02108</p>
+          <div class="address-actions">
+            <button class="edit-address-btn">Edit</button>
+            <button class="remove-address-btn">Remove</button>
+          </div>
+        </div>
+        <div class="address-card">
+          <h5>Office</h5>
+          <p>456 Business Ave<br />Suite 789<br />Boston, MA 02110</p>
+          <div class="address-actions">
+            <button class="edit-address-btn">Edit</button>
+            <button class="remove-address-btn">Remove</button>
+          </div>
+        </div>
+        <button class="add-address-btn mt-3">
+          <i class="fas fa-plus"></i>
+          Add New Address
+        </button>
+      </div>
+
+      <div id="notifications" class="settings-section">
+        <h3 class="section-title">Notification Preferences</h3>
+        <div class="notification-item">
+          <div>
+            <h5>Order Updates</h5>
+            <p class="text-muted">
+              Receive notifications about your order status
+            </p>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" checked />
+          </div>
+        </div>
+        <div class="notification-item">
+          <div>
+            <h5>Promotions</h5>
+            <p class="text-muted">
+              Get notified about sales and special offers
+            </p>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" checked />
+          </div>
+        </div>
+        <div class="notification-item">
+          <div>
+            <h5>New Arrivals</h5>
+            <p class="text-muted">Be the first to know about new products</p>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" />
+          </div>
+        </div>
+      </div>
+
+      <div id="security" class="settings-section">
+        <h3 class="section-title">Security Settings</h3>
+        <form id="security-form">
+          <div class="form-group">
+            <label class="form-label">Current Password</label>
+            <input type="password" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <input type="password" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm New Password</label>
+            <input type="password" class="form-control" />
+          </div>
+          <button type="submit" class="save-btn">Update Password</button>
+        </form>
+        <hr class="my-4" />
+        <div>
+          <h5 class="mb-3">Delete Account</h5>
+          <p class="text-muted">
+            Once you delete your account, there is no going back. Please be
+            certain.
+          </p>
+          <button class="delete-account-btn">Delete Account</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showSection(sectionId) {
+        // Hide all sections
+        document.querySelectorAll(".settings-section").forEach((section) => {
+          section.classList.remove("active");
+        });
+
+        // Remove active class from all nav items
+        document.querySelectorAll(".settings-nav-item").forEach((item) => {
+          item.classList.remove("active");
+        });
+
+        // Show selected section
+        document.getElementById(sectionId).classList.add("active");
+
+        // Add active class to clicked nav item
+        event.target.classList.add("active");
+      }
+
+      // Form submission handlers
+      document
+        .getElementById("profile-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Add profile update logic here
+          alert("Profile updated successfully!");
+        });
+
+      document
+        .getElementById("security-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Add password update logic here
+          alert("Password updated successfully!");
+        });
+
+      // Delete account confirmation
+      document
+        .querySelector(".delete-account-btn")
+        .addEventListener("click", function () {
+          if (
+            confirm(
+              "Are you sure you want to delete your account? This action cannot be undone."
+            )
+          ) {
+            // Add account deletion logic here
+            alert("Account deleted successfully");
+            window.location.href = "homepage.html";
+          }
+        });
+
+      function handleLogout() {
+        // Clear authentication data
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        // Redirect to sign in page
+        window.location.href = "signIn_signUp.html";
+      }
+
+      // Check authentication status on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          // If not logged in, redirect to sign in page
+          window.location.href = "signIn_signUp.html";
+        }
+      });
+    </script>
+  </body>
+</html>
