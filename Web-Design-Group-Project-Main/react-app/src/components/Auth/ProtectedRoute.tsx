@@ -3,22 +3,23 @@ import { Navigate } from 'react-router-dom';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredRole: string;
+
+  requiredRole?: string;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole }) => {
-  const userString = localStorage.getItem('user');
-  const user = userString ? JSON.parse(userString) : null;
+  const user = localStorage.getItem('user');
+  const token = localStorage.getItem('token');
 
-  if (!user) {
-    return <Navigate to="/login" />;
+  if (!user || !token) {
+    return <Navigate to="/login" replace />;
   }
 
-  const userRole = user.role.toLowerCase();
-  const required = requiredRole.toLowerCase();
+  const userData = JSON.parse(user);
+  
+  if (requiredRole && userData.role !== requiredRole) {
+    return <Navigate to="/" replace />;
 
-  if (userRole !== required) {
-    return <Navigate to="/login" />;
   }
 
   return <>{children}</>;
