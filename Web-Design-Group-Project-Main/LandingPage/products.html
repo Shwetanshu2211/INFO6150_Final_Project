@@ -27,103 +27,6 @@
       box-shadow: 0 4px 16px rgba(0,0,0,0.13);
       transform: translateY(-4px) scale(1.01);
     }
-    .product-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      justify-content: flex-end;
-      flex-wrap: nowrap;
-    }
-    .quantity-controls {
-      display: flex;
-      align-items: center;
-      background: white;
-      border-radius: 4px;
-      border: 1px solid #dee2e6;
-      height: 38px;
-      overflow: hidden;
-    }
-    .quantity-controls button {
-      width: 32px;
-      height: 38px;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      background: transparent;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.2s;
-      border-radius: 0;
-      margin: 0;
-    }
-    .quantity-controls button:hover {
-      background: #f8f9fa;
-    }
-    .quantity-display {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0 8px;
-      border-left: 1px solid #dee2e6;
-      border-right: 1px solid #dee2e6;
-      height: 100%;
-    }
-    .quantity-display span {
-      font-weight: 500;
-      min-width: 20px;
-      text-align: center;
-    }
-    .quantity-display .btn-success {
-      padding: 2px 6px;
-      font-size: 12px;
-      border-radius: 3px;
-      background-color: #198754;
-      border-color: #198754;
-    }
-    .quantity-display .btn-success:hover {
-      background-color: #157347;
-      border-color: #146c43;
-    }
-    .view-btn {
-      height: 38px;
-      padding: 0 16px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 500;
-      border-radius: 4px;
-      transition: all 0.2s;
-    }
-    .add-to-cart-btn {
-      height: 38px;
-      padding: 0 16px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 500;
-      border-radius: 4px;
-      transition: all 0.2s;
-    }
-    .btn-outline-dark:hover {
-      background-color: #343a40;
-      color: white;
-    }
-    .card-body {
-      padding: 1.5rem;
-    }
-    .card-title {
-      margin-bottom: 0.75rem;
-      font-weight: 600;
-    }
-    .card-text {
-      margin-bottom: 1.25rem;
-      color: #6c757d;
-    }
-    .fw-bold {
-      font-size: 1.25rem;
-    }
   </style>
 </head>
 <body>
@@ -139,9 +42,7 @@
     <div class="right-section">
       <input type="text" placeholder="What can we help you find?" class="search-bar">
       <i class="fas fa-search search-icon"></i>
-      <a href="cart.html" class="cart-icon">
-        <i class="fas fa-shopping-bag"></i>
-      </a>
+      <i class="fas fa-shopping-bag cart-icon"></i>
       <a href="signIn_signUp.html" class="btn btn-dark sign-in-btn">Sign In</a>
     </div>
   </div>
@@ -156,7 +57,6 @@
       <li><a href="homepage.html#meet-designers">Designers</a></li>
       <li><a href="homepage.html#assistance-faq">FAQs</a></li>
       <li><a href="homepage.html#Reviews">Reviews</a></li>
-      <li><a href="order-history.html">Order History</a></li>
     </ul>
   </nav>
 </header>
@@ -188,19 +88,7 @@
               <p class="card-text">Luxurious leather sofa for a modern look.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <span class="fw-bold">$1,299</span>
-                <div class="product-actions">
-                  <a href="product-details.html?product=sofa1" class="btn btn-outline-dark view-btn">View</a>
-                  <div class="quantity-controls" id="sofa1-controls" style="display: none;">
-                    <button class="btn btn-outline-dark" onclick="updateProductQuantity('Sofa 1', -1)">−</button>
-                    <div class="quantity-display">
-                      <span id="sofa1-quantity">1</span>
-                      <button class="btn btn-sm btn-success" onclick="updateProductQuantity('Sofa 1', 1)" title="Add one more">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <button class="btn btn-dark add-to-cart-btn" id="sofa1-btn" onclick="addToCart('Sofa 1', 1299, 'images/sofa1.jpg', 'Luxurious leather sofa for a modern look.')">Add to Cart</button>
-                </div>
+                <a href="product-details.html?product=sofa1" class="btn btn-dark">View</a>
               </div>
             </div>
           </div>
@@ -214,19 +102,7 @@
               <p class="card-text">Luxurious leather sofa for a modern look.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <span class="fw-bold">$1,299</span>
-                <div class="product-actions">
-                  <a href="product-details.html?product=sofa2" class="btn btn-outline-dark view-btn">View</a>
-                  <div class="quantity-controls" id="sofa2-controls" style="display: none;">
-                    <button class="btn btn-outline-dark" onclick="updateProductQuantity('Sofa 2', -1)">−</button>
-                    <div class="quantity-display">
-                      <span id="sofa2-quantity">1</span>
-                      <button class="btn btn-sm btn-success" onclick="updateProductQuantity('Sofa 2', 1)" title="Add one more">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <button class="btn btn-dark add-to-cart-btn" id="sofa2-btn" onclick="addToCart('Sofa 2', 1299, 'images/sofa2.jpg', 'Luxurious leather sofa for a modern look.')">Add to Cart</button>
-                </div>
+                <a href="product-details.html?product=sofa1" class="btn btn-dark">View</a>
               </div>
             </div>
           </div>
@@ -254,114 +130,6 @@
   }
   // Show sofas by default
   document.addEventListener('DOMContentLoaded', function() { showCategory('sofa'); });
-
-  function addToCart(name, price, image, description) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-    // Check if item already exists in cart
-    const existingItem = cart.find(item => item.name === name);
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cart.push({
-        name: name,
-        price: price,
-        image: image,
-        description: description,
-        quantity: 1
-      });
-    }
-    
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
-    // Update UI
-    updateProductControls(name);
-    updateCartIcon();
-    
-    // Show success message
-    const toast = document.createElement('div');
-    toast.className = 'position-fixed bottom-0 end-0 p-3';
-    toast.style.zIndex = '5';
-    toast.innerHTML = `
-      <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <strong class="me-auto">Success</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          Item added to cart!
-        </div>
-      </div>
-    `;
-    document.body.appendChild(toast);
-    
-    // Remove toast after 3 seconds
-    setTimeout(() => {
-      toast.remove();
-    }, 3000);
-  }
-
-  function updateProductQuantity(name, change) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const item = cart.find(item => item.name === name);
-    
-    if (item) {
-      item.quantity = Math.max(0, item.quantity + change);
-      
-      if (item.quantity === 0) {
-        // Remove item from cart if quantity is 0
-        const index = cart.findIndex(item => item.name === name);
-        cart.splice(index, 1);
-        // Show add to cart button
-        document.getElementById(`${name.toLowerCase().replace(' ', '')}-btn`).style.display = 'inline-block';
-        document.getElementById(`${name.toLowerCase().replace(' ', '')}-controls`).style.display = 'none';
-      } else {
-        // Update quantity display
-        document.getElementById(`${name.toLowerCase().replace(' ', '')}-quantity`).textContent = item.quantity;
-      }
-      
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartIcon();
-    }
-  }
-
-  function updateProductControls(name) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const item = cart.find(item => item.name === name);
-    const productId = name.toLowerCase().replace(' ', '');
-    
-    if (item) {
-      // Hide add to cart button
-      document.getElementById(`${productId}-btn`).style.display = 'none';
-      // Show quantity controls
-      document.getElementById(`${productId}-controls`).style.display = 'inline-flex';
-      // Update quantity display
-      document.getElementById(`${productId}-quantity`).textContent = item.quantity;
-    }
-  }
-
-  function updateCartIcon() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartIcon = document.querySelector('.cart-icon');
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    
-    if (totalItems > 0) {
-      cartIcon.innerHTML = `<i class="fas fa-shopping-bag"></i><span class="badge bg-danger">${totalItems}</span>`;
-    } else {
-      cartIcon.innerHTML = '<i class="fas fa-shopping-bag"></i>';
-    }
-  }
-
-  // Update all product controls when page loads
-  document.addEventListener('DOMContentLoaded', function() {
-    showCategory('sofa');
-    updateCartIcon();
-    
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.forEach(item => {
-      updateProductControls(item.name);
-    });
-  });
 </script>
 </body>
 </html>
