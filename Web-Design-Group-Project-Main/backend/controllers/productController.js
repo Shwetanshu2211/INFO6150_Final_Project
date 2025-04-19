@@ -1,6 +1,7 @@
 const Product = require('../models/Product');
 const path = require('path');
 
+
 // Get all products
 exports.getAllProducts = async (req, res) => {
   try {
@@ -200,6 +201,7 @@ exports.createProduct = async (req, res) => {
       message: 'Error creating product', 
       error: error.message
     });
+
   }
 };
 
@@ -214,6 +216,7 @@ exports.updateProduct = async (req, res) => {
     const product = await Product.findByIdAndUpdate(
       req.params.id,
       updates,
+
       { new: true, runValidators: true }
     );
     

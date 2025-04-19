@@ -12,6 +12,7 @@ const generateToken = (userId) => {
 // Register new user
 exports.register = async (req, res) => {
   try {
+
     console.log('Register endpoint called with body:', JSON.stringify(req.body, null, 2));
     const { name, email, password, securityQuestion, securityAnswer, role, artistInfo } = req.body;
     
@@ -91,6 +92,7 @@ exports.register = async (req, res) => {
 
 // Login user
 exports.login = async (req, res) => {
+
   try {
     const { email, password } = req.body;
 
@@ -126,6 +128,7 @@ exports.login = async (req, res) => {
 
 // Get user profile
 exports.getProfile = async (req, res) => {
+
   try {
     res.json({
       user: {
@@ -144,6 +147,7 @@ exports.getProfile = async (req, res) => {
 
 // Update user profile
 exports.updateProfile = async (req, res) => {
+
   try {
     const updates = req.body;
     const allowedUpdates = ['name', 'email', 'password', 'address', 'artistInfo'];
@@ -175,6 +179,7 @@ exports.updateProfile = async (req, res) => {
 // Get all users (admin only)
 exports.getAllUsers = async (req, res) => {
   try {
+
     const users = await User.find({}).select('-password');
     res.json(users);
   } catch (error) {
@@ -185,10 +190,12 @@ exports.getAllUsers = async (req, res) => {
 // Delete user (admin only)
 exports.deleteUser = async (req, res) => {
   try {
+
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
+
     res.json({ message: 'User deleted successfully' });
   } catch (error) {
     console.error('Error deleting user:', error);
@@ -204,3 +211,4 @@ module.exports = {
   getAllUsers: exports.getAllUsers,
   deleteUser: exports.deleteUser
 };
+

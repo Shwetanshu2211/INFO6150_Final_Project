@@ -68,6 +68,7 @@ const parseFormData = (req, res, next) => {
   next();
 };
 
+
 // Public routes
 router.get('/', getAllProducts);
 router.get('/:id', getProduct);
@@ -75,6 +76,7 @@ router.get('/:id', getProduct);
 // Protected routes (admin only)
 router.post('/', auth, isAdmin, upload, handleMulterError, parseFormData, createProduct);
 router.put('/:id', auth, isAdmin, upload, handleMulterError, parseFormData, updateProduct);
+
 router.delete('/:id', auth, isAdmin, deleteProduct);
 
 module.exports = router; 

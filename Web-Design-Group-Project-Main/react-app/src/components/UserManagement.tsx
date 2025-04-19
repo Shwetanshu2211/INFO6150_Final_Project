@@ -149,6 +149,7 @@ const UserManagement: React.FC = () => {
           <div className="navbar-nav ms-auto d-flex flex-row">
             <Button variant="outline-light" className="me-2" onClick={() => navigate('/admin/add-artist')}>Add Artist</Button>
             <Button variant="outline-light" className="me-2" onClick={() => navigate('/admin/upload-product')}>Upload Product</Button>
+
             <Button variant="outline-light" onClick={() => navigate('/manage-orders')}>Manage Orders</Button>
           </div>
         </div>

@@ -9,6 +9,7 @@ import Collection from './components/Collections/Collection';
 import CartView from './components/Cart/CartView';
 import CheckoutPage from './components/Checkout/CheckoutPage';
 
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Auth from './components/Auth/Auth';
@@ -54,6 +55,7 @@ function App() {
           <Route path="/checkout" element={
             <ProtectedRoute requiredRole="customer">
               <CheckoutPage />
+
             </ProtectedRoute>
           } />
           
@@ -69,6 +71,7 @@ function App() {
               <UserManagement />
             </ProtectedRoute>
           } />
+
 
           <Route path="/admin/table" element={
             <ProtectedRoute requiredRole="admin">
@@ -88,6 +91,7 @@ function App() {
               <UploadProduct />
             </ProtectedRoute>
           } />
+
           
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

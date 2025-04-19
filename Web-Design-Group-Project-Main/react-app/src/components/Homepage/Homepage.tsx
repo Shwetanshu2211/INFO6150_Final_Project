@@ -62,6 +62,7 @@ const Homepage: React.FC = () => {
       {/* Use Header component instead of inline HTML */}
       <Header />
 
+
       {/* Explore Now Section */}
       <section id="explore-now" className="section py-5 mb-5">
         <Container fluid className="p-0">
@@ -76,6 +77,7 @@ const Homepage: React.FC = () => {
                   currentTarget.onerror = null;
                   currentTarget.src = 'https://placehold.co/1200x600/e9ecef/6c757d?text=Furniture+Image';
                 }}
+
               />
               <Carousel.Caption className="text-left">
                 <h3>Hello, Neighbor!</h3>
@@ -91,6 +93,7 @@ const Homepage: React.FC = () => {
                   currentTarget.onerror = null;
                   currentTarget.src = 'https://placehold.co/1200x600/e9ecef/6c757d?text=Furniture+Image';
                 }}
+
               />
               <Carousel.Caption className="text-left">
                 <h3>Up Close & Personal.</h3>
@@ -106,6 +109,7 @@ const Homepage: React.FC = () => {
                   currentTarget.onerror = null;
                   currentTarget.src = 'https://placehold.co/1200x600/e9ecef/6c757d?text=Furniture+Image';
                 }}
+
               />
               <Carousel.Caption className="text-left">
                 <h3>Design Made for You.</h3>
@@ -159,6 +163,7 @@ const Homepage: React.FC = () => {
                     currentTarget.src = 'https://placehold.co/600x400/e9ecef/6c757d?text=Dining+Table+Image';
                   }}  
                 />
+
                 <Card.Body className="text-center">
                   <Card.Title className="offering-title">Dining Table</Card.Title>
                   <Card.Text className="offering-description">
@@ -169,6 +174,7 @@ const Homepage: React.FC = () => {
                     className="w-100 view-collection-btn btn-standard-dark"
                     onClick={() => handleViewCollection('dining')}
                   >
+
                     View Collection
                   </Button>
                 </Card.Body>
@@ -186,6 +192,7 @@ const Homepage: React.FC = () => {
                     currentTarget.src = 'https://placehold.co/600x400/e9ecef/6c757d?text=TV+Cabinet+Image';
                   }}  
                 />
+
                 <Card.Body className="text-center">
                   <Card.Title className="offering-title">TV Cabinets</Card.Title>
                   <Card.Text className="offering-description">
@@ -213,6 +220,7 @@ const Homepage: React.FC = () => {
                     currentTarget.src = 'https://placehold.co/600x400/e9ecef/6c757d?text=Wardrobe+Image';
                   }}  
                 />
+
                 <Card.Body className="text-center">
                   <Card.Title className="offering-title">Wardrobe</Card.Title>
                   <Card.Text className="offering-description">

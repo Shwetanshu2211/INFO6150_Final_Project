@@ -29,6 +29,7 @@ body {
   backdrop-filter: blur(10px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-bottom: 2px solid #006A4E; /* Bottle green border */
+
 }
 
 .header-content {
@@ -38,11 +39,13 @@ body {
   width: 100%;
   max-width: 1400px;
   padding-bottom: 10px;
+
 }
 
 .left-section {
   display: flex;
   align-items: center;
+
 }
 
 .left-section i {
@@ -62,6 +65,7 @@ body {
   justify-content: center; /* Center horizontally */
 }
 
+
 .center-section .logo {
   font-size: 32px;
   font-weight: 700;
@@ -72,6 +76,7 @@ body {
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease;
   text-align: center; /* Center the logo text */
+
 }
 
 .center-section .logo:hover {
@@ -187,6 +192,7 @@ body {
 .section .container {
   max-width: 1200px;
   margin: 0 auto;
+
 }
 
 .section-title {

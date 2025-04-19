@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
+
   requiredRole?: string;
 }
 
@@ -17,6 +18,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
   const userData = JSON.parse(user);
   const userRole = userData.role;
 
+
   // Give admin access to all routes
   if (userRole === 'admin') {
     return <>{children}</>;
@@ -25,6 +27,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
   // For non-admin users, check if they have the required role
   if (requiredRole && userRole !== requiredRole) {
     return <Navigate to="/" replace />;
+
   }
 
   return <>{children}</>;
