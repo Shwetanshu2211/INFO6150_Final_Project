@@ -1,0 +1,381 @@
+{
+	"info": {
+		"_postman_id": "your-collection-id",
+		"name": "E-Commerce API Collection",
+		"description": "Collection of all APIs for the E-Commerce application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User APIs",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/register",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users", "register"]
+						}
+					}
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users", "login"]
+						}
+					}
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/profile",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users", "profile"]
+						}
+					}
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Name\",\n    \"email\": \"updated@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/profile",
+							"host": ["{{base_url}}"],
+							"path": ["api", "users", "profile"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Product APIs",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/products",
+							"host": ["{{base_url}}"],
+							"path": ["api", "products"]
+						}
+					}
+				},
+				{
+					"name": "Get Single Product",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/api/products/:id",
+							"host": ["{{base_url}}"],
+							"path": ["api", "products", ":id"]
+						}
+					}
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "New Product",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "99.99",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Product description",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "Category",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products",
+							"host": ["{{base_url}}"],
+							"path": ["api", "products"]
+						}
+					}
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Updated Product",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "149.99",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Updated description",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "Updated Category",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products/:id",
+							"host": ["{{base_url}}"],
+							"path": ["api", "products", ":id"]
+						}
+					}
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/products/:id",
+							"host": ["{{base_url}}"],
+							"path": ["api", "products", ":id"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Order APIs",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderItems\": [\n        {\n            \"product\": \"product_id\",\n            \"quantity\": 2\n        }\n    ],\n    \"shippingAddress\": {\n        \"address\": \"123 Test St\",\n        \"city\": \"Test City\",\n        \"postalCode\": \"12345\",\n        \"country\": \"Test Country\"\n    },\n    \"paymentMethod\": \"stripe\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders",
+							"host": ["{{base_url}}"],
+							"path": ["api", "orders"]
+						}
+					}
+				},
+				{
+					"name": "Get User Orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/orders/myorders",
+							"host": ["{{base_url}}"],
+							"path": ["api", "orders", "myorders"]
+						}
+					}
+				},
+				{
+					"name": "Get Order by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/orders/:id",
+							"host": ["{{base_url}}"],
+							"path": ["api", "orders", ":id"]
+						}
+					}
+				},
+				{
+					"name": "Update Order Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"Delivered\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders/:id",
+							"host": ["{{base_url}}"],
+							"path": ["api", "orders", ":id"]
+						}
+					}
+				},
+				{
+					"name": "Cancel Order",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/orders/:id/cancel",
+							"host": ["{{base_url}}"],
+							"path": ["api", "orders", ":id", "cancel"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Payment APIs",
+			"item": [
+				{
+					"name": "Create Payment Intent",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 1000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/payment/create-payment-intent",
+							"host": ["{{base_url}}"],
+							"path": ["api", "payment", "create-payment-intent"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "your-jwt-token",
+			"type": "string"
+		}
+	]
+} 

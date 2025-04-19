@@ -145,13 +145,12 @@ const Auth: React.FC = () => {
           navigate('/artists/dashboard');
           break;
         case 'admin':
-          console.log('Redirecting to admin table');
-          navigate('/admin/table');
+          console.log('Redirecting to admin user management');
+          navigate('/admin/user-management');
           break;
         default:
           console.log('No matching role, redirecting to home');
           navigate('/');
-
       }
     } catch (err) {
       console.error('Authentication error:', err);

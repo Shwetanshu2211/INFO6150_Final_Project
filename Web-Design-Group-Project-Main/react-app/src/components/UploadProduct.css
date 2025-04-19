@@ -1,0 +1,40 @@
+.upload-form {
+  background-color: rgba(255, 255, 255, 0.92);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.upload-form label {
+  font-weight: 600;
+  color: #444;
+}
+
+.upload-form .form-control {
+  margin-top: 6px;
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fdfdfd;
+}
+
+.upload-form textarea.form-control {
+  resize: vertical;
+}
+
+.upload-form button {
+  margin-top: 25px;
+  padding: 12px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.upload-form button:hover {
+  background-color: #273527;
+} 
