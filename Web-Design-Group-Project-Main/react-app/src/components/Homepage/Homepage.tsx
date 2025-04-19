@@ -1,47 +1,66 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
 import { Container, Row, Col, Carousel, Card, Button, Accordion } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faShoppingBag, faBars, faCouch, faRecycle, faSmile } from '@fortawesome/free-solid-svg-icons';
+import { faCouch, faRecycle, faSmile } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Header from '../Header/Header';
 import './Homepage.css';
 
 const Homepage: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Handle hash navigation when component mounts
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location.hash]);
+
+  const handleViewCollection = (collectionType: string) => {
+    // Check if user is logged in
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Map the collection type to the correct category name
+      const categoryMap: { [key: string]: string } = {
+        'sofa': 'Sofa',
+        'dining': 'Dining Table',
+        'tv-cabinets': 'TV Cabinets',
+        'wardrobe': 'Wardrobe',
+        'tables': 'Tables'
+      };
+      
+      const category = categoryMap[collectionType] || collectionType;
+      // User is logged in, navigate to collection page
+      navigate(`/collection/${category}`);
+    } else {
+      // User is not logged in, redirect to login page
+      navigate('/login', { state: { redirectPath: `/collection/${collectionType}` } });
+    }
+  };
+
+  const handleCustomize = () => {
+    // Check if user is logged in
+    const token = localStorage.getItem('token');
+    if (token) {
+      // User is logged in, navigate to customization page
+      navigate('/customize');
+    } else {
+      // User is not logged in, redirect to login page
+      navigate('/login', { state: { redirectPath: '/customize' } });
+    }
+  };
+
   return (
     <div className="homepage">
-      {/* Header Section */}
-      <header className="header">
-        <div className="header-content">
-          <div className="left-section">
-            {/* Removed FontAwesomeIcon and link */}
-
-          </div>
-          <div className="center-section">
-            <h1 className="logo">Fusion Furnish</h1>
-          </div>
-          <div className="right-section">
-
-            <FontAwesomeIcon icon={faShoppingBag} className="cart-icon" />
-            <Button variant="dark" className="sign-in-btn btn-standard-dark">Sign In</Button>
-          </div>
-        </div>
-        <nav className="nav">
-          <div className="menu-icon">
-
-            <FontAwesomeIcon icon={faBars} />
-          </div>
-          <ul className="nav-links">
-            <li><a href="#explore-now">Explore</a></li>
-            <li><a href="#offerings">Our Offerings</a></li>
-            <li><a href="#about-us">About Us</a></li>
-            <li><a href="#meet-designers">Designers</a></li>
-            <li><a href="#assistance-faq">FAQs</a></li>
-
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="/order-history">Order History</a></li>
-
-          </ul>
-        </nav>
-      </header>
+      {/* Use Header component instead of inline HTML */}
+      <Header />
 
 
       {/* Explore Now Section */}
@@ -52,8 +71,13 @@ const Homepage: React.FC = () => {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="/images/furniture1.jpg"
+                src="./images/furniture1.jpg"
                 alt="First slide"
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null;
+                  currentTarget.src = 'https://placehold.co/1200x600/e9ecef/6c757d?text=Furniture+Image';
+                }}
+
               />
               <Carousel.Caption className="text-left">
                 <h3>Hello, Neighbor!</h3>
@@ -63,8 +87,13 @@ const Homepage: React.FC = () => {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="/images/furniture4.jpg"
+                src="./images/furniture4.jpg"
                 alt="Second slide"
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null;
+                  currentTarget.src = 'https://placehold.co/1200x600/e9ecef/6c757d?text=Furniture+Image';
+                }}
+
               />
               <Carousel.Caption className="text-left">
                 <h3>Up Close & Personal.</h3>
@@ -74,8 +103,13 @@ const Homepage: React.FC = () => {
             <Carousel.Item>
               <img
                 className="d-block w-100"
-                src="/images/furniture6.jpg"
+                src="./images/furniture6.jpg"
                 alt="Third slide"
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null;
+                  currentTarget.src = 'https://placehold.co/1200x600/e9ecef/6c757d?text=Furniture+Image';
+                }}
+
               />
               <Carousel.Caption className="text-left">
                 <h3>Design Made for You.</h3>
@@ -93,13 +127,25 @@ const Homepage: React.FC = () => {
           <Row className="g-4">
             <Col xs={12} md={6} lg={4}>
               <Card className="h-100 offering-card">
-                <Card.Img variant="top" src="/images/sofa.jpg" className="offering-img" />
+                <Card.Img 
+                  variant="top" 
+                  src="./images/sofa.jpg" 
+                  className="offering-img"
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null;
+                    currentTarget.src = 'https://placehold.co/600x400/e9ecef/6c757d?text=Sofa+Image';
+                  }}  
+                />
                 <Card.Body className="text-center">
                   <Card.Title className="offering-title">Sofa</Card.Title>
                   <Card.Text className="offering-description">
-                    Luxurious and comfortable sofas for your living room.
+                  Luxurious sofas for your living room.
                   </Card.Text>
-                  <Button variant="dark" className="w-100 view-collection-btn btn-standard-dark">
+                  <Button 
+                    variant="dark" 
+                    className="w-100 view-collection-btn btn-standard-dark"
+                    onClick={() => handleViewCollection('sofa')}
+                  >
                     View Collection
                   </Button>
                 </Card.Body>
@@ -108,13 +154,27 @@ const Homepage: React.FC = () => {
 
             <Col xs={12} md={6} lg={4}>
               <Card className="h-100 offering-card">
-                <Card.Img variant="top" src="/images/diningtable.jpg" className="offering-img" />
+                <Card.Img 
+                  variant="top" 
+                  src="./images/diningtable.jpg" 
+                  className="offering-img"
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null;
+                    currentTarget.src = 'https://placehold.co/600x400/e9ecef/6c757d?text=Dining+Table+Image';
+                  }}  
+                />
+
                 <Card.Body className="text-center">
                   <Card.Title className="offering-title">Dining Table</Card.Title>
                   <Card.Text className="offering-description">
                     Elegant dining tables for memorable meals.
                   </Card.Text>
-                  <Button variant="dark" className="w-100 view-collection-btn btn-standard-dark">
+                  <Button 
+                    variant="dark" 
+                    className="w-100 view-collection-btn btn-standard-dark"
+                    onClick={() => handleViewCollection('dining')}
+                  >
+
                     View Collection
                   </Button>
                 </Card.Body>
@@ -123,13 +183,26 @@ const Homepage: React.FC = () => {
 
             <Col xs={12} md={6} lg={4}>
               <Card className="h-100 offering-card">
-                <Card.Img variant="top" src="/images/tv%20cabinet.jpg" className="offering-img" />
+                <Card.Img 
+                  variant="top" 
+                  src="./images/tv%20cabinet.jpg" 
+                  className="offering-img"
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null;
+                    currentTarget.src = 'https://placehold.co/600x400/e9ecef/6c757d?text=TV+Cabinet+Image';
+                  }}  
+                />
+
                 <Card.Body className="text-center">
                   <Card.Title className="offering-title">TV Cabinets</Card.Title>
                   <Card.Text className="offering-description">
                     Stylish TV cabinets for your entertainment space.
                   </Card.Text>
-                  <Button variant="dark" className="w-100 view-collection-btn btn-standard-dark">
+                  <Button 
+                    variant="dark" 
+                    className="w-100 view-collection-btn btn-standard-dark"
+                    onClick={() => handleViewCollection('tv-cabinets')}
+                  >
                     View Collection
                   </Button>
                 </Card.Body>
@@ -138,13 +211,26 @@ const Homepage: React.FC = () => {
 
             <Col xs={12} md={6} lg={4}>
               <Card className="h-100 offering-card">
-                <Card.Img variant="top" src="/images/wardrobe.jpg" className="offering-img" />
+                <Card.Img 
+                  variant="top" 
+                  src="./images/wardrobe.jpg" 
+                  className="offering-img"
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null;
+                    currentTarget.src = 'https://placehold.co/600x400/e9ecef/6c757d?text=Wardrobe+Image';
+                  }}  
+                />
+
                 <Card.Body className="text-center">
                   <Card.Title className="offering-title">Wardrobe</Card.Title>
                   <Card.Text className="offering-description">
                     Spacious wardrobes for organized living.
                   </Card.Text>
-                  <Button variant="dark" className="w-100 view-collection-btn btn-standard-dark">
+                  <Button 
+                    variant="dark" 
+                    className="w-100 view-collection-btn btn-standard-dark"
+                    onClick={() => handleViewCollection('wardrobe')}
+                  >
                     View Collection
                   </Button>
                 </Card.Body>
@@ -153,13 +239,25 @@ const Homepage: React.FC = () => {
 
             <Col xs={12} md={6} lg={4}>
               <Card className="h-100 offering-card">
-                <Card.Img variant="top" src="/images/table.jpg" className="offering-img" />
+                <Card.Img 
+                  variant="top" 
+                  src="./images/table.jpg" 
+                  className="offering-img"
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null;
+                    currentTarget.src = 'https://placehold.co/600x400/e9ecef/6c757d?text=Table+Image';
+                  }}  
+                />
                 <Card.Body className="text-center">
                   <Card.Title className="offering-title">Tables & More</Card.Title>
                   <Card.Text className="offering-description">
                     Versatile tables and more for every need.
                   </Card.Text>
-                  <Button variant="dark" className="w-100 view-collection-btn btn-standard-dark">
+                  <Button 
+                    variant="dark" 
+                    className="w-100 view-collection-btn btn-standard-dark"
+                    onClick={() => handleViewCollection('tables')}
+                  >
                     View Collection
                   </Button>
                 </Card.Body>
@@ -168,13 +266,25 @@ const Homepage: React.FC = () => {
 
             <Col xs={12} md={6} lg={4}>
               <Card className="h-100 offering-card">
-                <Card.Img variant="top" src="/images/customizenow.jpg" className="offering-img" />
+                <Card.Img 
+                  variant="top" 
+                  src="./images/customizenow.jpg" 
+                  className="offering-img"
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null;
+                    currentTarget.src = 'https://placehold.co/600x400/e9ecef/6c757d?text=Customize+Now+Image';
+                  }}  
+                />
                 <Card.Body className="text-center">
                   <Card.Title className="offering-title">Customization</Card.Title>
                   <Card.Text className="offering-description">
-                    Have a unique design in mind? Click below to customize!
+                    Got a unique design? Customize now!
                   </Card.Text>
-                  <Button variant="warning" className="w-100 customize-btn">
+                  <Button 
+                    variant="warning" 
+                    className="w-100 customize-btn"
+                    onClick={handleCustomize}
+                  >
                     Customize Now
                   </Button>
                 </Card.Body>
@@ -190,7 +300,15 @@ const Homepage: React.FC = () => {
           <h2 className="section-title text-center mb-5">About Us</h2>
           <Row className="align-items-center mb-5">
             <Col lg={6} className="text-center mb-4 mb-lg-0">
-              <img src="/images/AboutUs.jpg" alt="About Us Interior" className="about-img img-fluid rounded shadow" />
+              <img 
+                src="./images/AboutUs.jpg" 
+                alt="About Us Interior" 
+                className="about-img img-fluid rounded shadow" 
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null;
+                  currentTarget.src = 'https://placehold.co/800x600/e9ecef/6c757d?text=About+Us+Image';
+                }}
+              />
             </Col>
             <Col lg={6} className="about-content">
               <h3 className="fw-bold mb-3">Welcome to Fusion Furnish – where design meets comfort</h3>
@@ -464,7 +582,6 @@ const Homepage: React.FC = () => {
         </Container>
       </section>
     </div>
-
   );
 };
 

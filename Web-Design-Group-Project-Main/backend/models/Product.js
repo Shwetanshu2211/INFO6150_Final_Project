@@ -1,56 +1,60 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-  name: {
+  title: {
+
     type: String,
     required: true,
     trim: true
   },
   description: {
     type: String,
-    required: true
+    required: true,
+    trim: true
+
   },
   price: {
     type: Number,
     required: true,
     min: 0
   },
+
+  image: {
+    type: String, // We'll store the path to the image
+    required: true
+  },
+  dimensions: {
+    length: {
+      type: Number,
+      required: true,
+      min: 0
+    },
+    breadth: {
+      type: Number,
+      required: true,
+      min: 0
+    },
+    height: {
+      type: Number,
+      required: true,
+      min: 0
+    }
+  },
   category: {
     type: String,
     required: true,
-    trim: true
+    enum: ['Sofa', 'Dining Table', 'TV Cabinets', 'Wardrobe', 'Tables'],
+    default: 'Tables'
   },
-  imageUrl: {
-    type: String,
-    required: true
+  createdAt: {
+    type: Date,
+    default: Date.now
   },
-  stock: {
-    type: Number,
-    required: true,
-    min: 0,
-    default: 0
-  },
-  features: [{
-    type: String
-  }],
-  dimensions: {
-    width: Number,
-    height: Number,
-    depth: Number,
-    unit: {
-      type: String,
-      enum: ['cm', 'inch'],
-      default: 'cm'
-    }
-  },
-  material: String,
-  color: String,
-  isAvailable: {
-    type: Boolean,
-    default: true
+  updatedAt: {
+    type: Date,
+    default: Date.now
   }
-}, {
-  timestamps: true
+
 });
 
 const Product = mongoose.model('Product', productSchema);

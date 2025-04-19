@@ -1,4 +1,3 @@
-
 /* Reset and Global Styles */
 
 * {
@@ -37,7 +36,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   width: 100%;
   max-width: 1400px;
   padding-bottom: 10px;
@@ -60,6 +58,14 @@ body {
   font-size: 14px;
 }
 
+.center-section {
+  text-align: center; /* Center the logo */
+  flex: 1; /* Allow the center section to take up available space */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+}
+
+
 .center-section .logo {
   font-size: 32px;
   font-weight: 700;
@@ -69,11 +75,12 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease;
+  text-align: center; /* Center the logo text */
+
 }
 
 .center-section .logo:hover {
   transform: scale(1.05);
-
 }
 
 .right-section {
@@ -179,6 +186,13 @@ body {
 /* Section Styles */
 .section {
   padding: 60px 0;
+  text-align: center; /* Center align section content by default */
+}
+
+.section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+
 }
 
 .section-title {
@@ -189,6 +203,10 @@ body {
   color: #333;
   position: relative;
   padding-bottom: 20px;
+  width: 100%; /* Ensure full width */
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
 }
 
 .section-title::after {
@@ -812,9 +830,10 @@ body {
 
 /* Explore Now Section */
 #explore-now {
-  padding-top: 60px; /* Reduced padding since we have homepage padding */
-  margin-top: 0;
+  padding-top: 160px; /* Increased padding to avoid overlap with fixed header */
+  margin-top: 20px;
   position: relative;
+  text-align: center; /* Center all content in explore-now section */
 }
 
 #explore-now .section-title {
@@ -1167,4 +1186,46 @@ body {
   color: white;
   transform: translateY(-2px);
 
+}
+
+/* Responsive fixes for alignment */
+@media (max-width: 768px) {
+  .center-section {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .header-content {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    width: 100%;
+  }
+}
+
+/* Global heading alignment */
+#reviews .section-title,
+#offerings .section-title,
+.about-section .section-title,
+.meet-designers .section-title,
+.assistance-faq .section-title {
+  text-align: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+}
+
+/* Ensure all content areas have consistent margins */
+.section {
+  padding: 60px 0;
+  text-align: center; /* Center align section content by default */
+}
+
+.section .container {
+  max-width: 1200px;
+  margin: 0 auto;
 } 

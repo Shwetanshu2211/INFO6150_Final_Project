@@ -16,9 +16,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
   }
 
   const userData = JSON.parse(user);
-  
-  if (requiredRole && userData.role !== requiredRole) {
-    return <Navigate to="/" replace />;
+  const userRole = userData.role;
 
 
   // Give admin access to all routes
@@ -27,8 +25,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole 
   }
 
   // For non-admin users, check if they have the required role
-  if (userRole !== required) {
-    return <Navigate to="/login" />;
+  if (requiredRole && userRole !== requiredRole) {
+    return <Navigate to="/" replace />;
 
   }
 

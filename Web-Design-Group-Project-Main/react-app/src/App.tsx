@@ -4,6 +4,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './components/Login';
 import UserManagement from './components/UserManagement';
 import AddArtist from './components/AddArtist';
+import UploadProduct from './components/UploadProduct';
+import Collection from './components/Collections/Collection';
+import CartView from './components/Cart/CartView';
+import CheckoutPage from './components/Checkout/CheckoutPage';
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,8 +35,26 @@ function App() {
           <Route path="/homepage" element={
             <ProtectedRoute requiredRole="customer">
               <Homepage />
-
               <Footer />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/collection/:category" element={
+            <ProtectedRoute requiredRole="customer">
+              <Collection />
+              <Footer />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/cart" element={
+            <ProtectedRoute requiredRole="customer">
+              <CartView />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/checkout" element={
+            <ProtectedRoute requiredRole="customer">
+              <CheckoutPage />
 
             </ProtectedRoute>
           } />
@@ -43,6 +65,13 @@ function App() {
             </ProtectedRoute>
           } />
           
+
+          <Route path="/admin/user-management" element={
+            <ProtectedRoute requiredRole="admin">
+              <UserManagement />
+            </ProtectedRoute>
+          } />
+
 
           <Route path="/admin/table" element={
             <ProtectedRoute requiredRole="admin">
@@ -56,6 +85,13 @@ function App() {
               <AddArtist />
             </ProtectedRoute>
           } />
+
+          <Route path="/admin/upload-product" element={
+            <ProtectedRoute requiredRole="admin">
+              <UploadProduct />
+            </ProtectedRoute>
+          } />
+
           
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
